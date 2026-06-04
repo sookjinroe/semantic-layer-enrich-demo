@@ -1,0 +1,51 @@
+{
+  "_comment": "Link fixture (신호 기반, 케이스 재설계). 컬럼은 구조+Description+계보(lineage)를 들고, 사용(BI) 신호는 별도 bi_assets(field/metric/dashboard)가 컬럼을 참조하는 형태(실제 Looker/Tableau API 모양). Link는 references를 역방향으로 읽어 사용 신호를 얻는다. 클러스터는 현실감 있게 크고(배경 매칭 다수 포함), 발굴 케이스는 신호 상황별로 다양하다. 케이스↔명제 매핑은 README 참조.",
+  "cluster_id": "LOAN_WORKING_SET_04",
+
+  "_lineage_legend": "lineage.upstream=직속 상류. derived_with=같은 변환에서 함께 파생된 컬럼.",
+  "_bi_legend": "bi_assets=BI 메타데이터(API 조회분). type=field(dimension)|metric(measure 집계)|dashboard. label=표시명(없거나 모호할 수 있음). references=참조 물리 컬럼(N:N). expr=정의식. 신규/미사용 컬럼은 어떤 자산도 참조하지 않는다. 라벨이 약해도(label이 모호하거나 dashboard만 참조) references·공동참조는 살아있을 수 있다.",
+
+  "columns": [
+    { "asset": "LOAN_APPL_HIST.TAX_EXMP_FLG",   "type": "CHAR(1)",       "domain": "LOAN",     "fk": null, "verified_description": "대출 신청 건의 세금 면제 여부 플래그. Y=면세 대상, N=과세 대상.", "lineage": { "upstream": "TAX_CALC_MODULE", "derived_with": ["LOAN_APPL_HIST.TAX_EXMP_RSN_CD"] } },
+    { "asset": "LOAN_APPL_HIST.TAX_EXMP_RSN_CD", "type": "CHAR(2)",       "domain": "LOAN",     "fk": null, "verified_description": "세금 면제가 적용된 사유 코드. 면제 근거(국가유공자·장애인·기초생활수급 등)를 분류한다.", "lineage": { "upstream": "TAX_CALC_MODULE", "derived_with": ["LOAN_APPL_HIST.TAX_EXMP_FLG"] } },
+    { "asset": "LOAN_APPL_HIST.LOAN_STAT_CD",   "type": "CHAR(2)",       "domain": "LOAN",     "fk": null, "verified_description": "대출 신청 건의 현재 처리 상태 코드. 01=접수, 02=심사중, 03=승인, 04=거절.", "lineage": { "upstream": "LOAN_WORKFLOW", "derived_with": [] } },
+    { "asset": "LOAN_APPL_HIST.LOAN_AMT",       "type": "DECIMAL(15,2)", "domain": "LOAN",     "fk": null, "verified_description": "고객이 신청한 대출 원금 금액(원).", "lineage": { "upstream": "LOAN_APPL_FORM", "derived_with": [] } },
+    { "asset": "LOAN_APPL_HIST.INT_RATE",       "type": "DECIMAL(5,3)",  "domain": "LOAN",     "fk": null, "verified_description": "대출에 적용되는 연 이자율(%).", "lineage": { "upstream": "RATE_ENGINE", "derived_with": ["LOAN_APPL_HIST.APLD_RATE"] } },
+    { "asset": "LOAN_APPL_HIST.APLD_RATE",      "type": "DECIMAL(5,3)",  "domain": "LOAN",     "fk": null, "verified_description": "적용 비율(%). 무엇에 대한 비율인지는 소스만으로 명확하지 않다.", "lineage": { "upstream": "RATE_ENGINE", "derived_with": ["LOAN_APPL_HIST.INT_RATE"] } },
+    { "asset": "LOAN_APPL_HIST.LOAN_EXP_DT",    "type": "DATE",          "domain": "LOAN",     "fk": null, "verified_description": "대출 만기 관련 일자. 어느 만기 기준인지는 소스만으로 명확하지 않다.", "lineage": { "upstream": "LOAN_APPL_FORM", "derived_with": [] } },
+    { "asset": "LOAN_APPL_HIST.CRDT_GRD_CD",    "type": "CHAR(1)",       "domain": "LOAN",     "fk": null, "verified_description": "대출 심사 시점의 고객 신용도를 나타내는 신용 등급 코드.", "lineage": { "upstream": "CREDIT_EVAL_ENGINE", "derived_with": ["LOAN_APPL_HIST.CRDT_SCR", "LOAN_APPL_HIST.CRDT_EVAL_DT"] } },
+    { "asset": "CUST_BASE_INFO.CUST_NO",        "type": "VARCHAR(15)",   "domain": "CUSTOMER", "fk": null, "pk": true, "verified_description": "고객을 식별하는 고유 번호.", "lineage": { "upstream": "CUST_MASTER", "derived_with": [] } },
+    { "asset": "LOAN_APPL_HIST.CUST_NO",        "type": "VARCHAR(15)",   "domain": "LOAN",     "fk": "CUST_BASE_INFO.CUST_NO", "verified_description": "대출을 신청한 고객의 식별 번호.", "lineage": { "upstream": "CUST_BASE_INFO.CUST_NO", "derived_with": [] } },
+    { "asset": "LOAN_APPL_HIST.RPYMT_MTHD_CD",  "type": "CHAR(2)",       "domain": "LOAN",     "fk": null, "verified_description": "대출 상환 방식 코드. 구체적 방식 분류는 소스에서 확인되지 않았다.", "lineage": { "upstream": "LOAN_APPL_FORM", "derived_with": [] } },
+    { "asset": "LOAN_APPL_HIST.CRDT_SCR",       "type": "SMALLINT",      "domain": "LOAN",     "fk": null, "verified_description": "신용평가 모델이 산출한 고객 신용 점수(수치).", "lineage": { "upstream": "CREDIT_EVAL_ENGINE", "derived_with": ["LOAN_APPL_HIST.CRDT_GRD_CD", "LOAN_APPL_HIST.CRDT_EVAL_DT"] } },
+    { "asset": "LOAN_APPL_HIST.CRDT_EVAL_DT",   "type": "DATE",          "domain": "LOAN",     "fk": null, "verified_description": "고객 신용평가를 수행한 일자.", "lineage": { "upstream": "CREDIT_EVAL_ENGINE", "derived_with": ["LOAN_APPL_HIST.CRDT_SCR", "LOAN_APPL_HIST.CRDT_GRD_CD"] } },
+    { "asset": "LOAN_APPL_HIST.BNS_CD",         "type": "CHAR(1)",       "domain": "LOAN",     "fk": null, "verified_description": "방카슈랑스(은행 창구 보험) 권유에 대한 고객 동의 여부. Y=동의, N=비동의, X=권유 대상 아님.", "lineage": { "upstream": "BANCASSURANCE_CONSENT", "derived_with": [] } },
+    { "asset": "LOAN_APPL_HIST.DLNQ_FLG",       "type": "CHAR(1)",       "domain": "LOAN",     "fk": null, "verified_description": "대출 건의 현재 연체 여부 플래그. Y=연체 중, N=정상.", "lineage": { "upstream": "DELINQUENCY_BATCH", "derived_with": ["LOAN_APPL_HIST.DLNQ_DAYS"] } },
+    { "asset": "LOAN_APPL_HIST.DLNQ_DAYS",      "type": "SMALLINT",      "domain": "LOAN",     "fk": null, "verified_description": "현재 연체가 지속된 일수.", "lineage": { "upstream": "DELINQUENCY_BATCH", "derived_with": ["LOAN_APPL_HIST.DLNQ_FLG"] } },
+    { "asset": "LOAN_APPL_HIST.CLTRL_TYPE_CD",  "type": "CHAR(2)",       "domain": "LOAN",     "fk": null, "verified_description": "담보 유형 코드. 부동산·예금·보증 등 담보의 종류를 분류한다.", "lineage": { "upstream": "COLLATERAL_EVAL_BATCH", "derived_with": ["LOAN_APPL_HIST.CLTRL_VAL_AMT"] } },
+    { "asset": "LOAN_APPL_HIST.CLTRL_VAL_AMT",  "type": "DECIMAL(15,2)", "domain": "LOAN",     "fk": null, "verified_description": "담보 평가 금액(원). 담보물의 감정 평가액.", "lineage": { "upstream": "COLLATERAL_EVAL_BATCH", "derived_with": ["LOAN_APPL_HIST.CLTRL_TYPE_CD"] } },
+    { "asset": "CUST_BASE_INFO.CUST_CLF_CD",    "type": "CHAR(2)",       "domain": "CUSTOMER", "fk": null, "verified_description": "고객을 분류하는 2자리 코드. (Render LOW — 분류 기준·코드값 의미가 소스에서 확인되지 않아 미확정)", "render_confidence": "LOW", "lineage": { "upstream": null, "derived_with": [] } },
+    { "asset": "LOAN_APPL_HIST.CREATED_AT",     "type": "TIMESTAMP",     "domain": "LOAN",     "fk": null, "verified_description": "레코드 생성 시각.", "lineage": { "upstream": null, "derived_with": [] } },
+    { "asset": "LOAN_APPL_HIST.UPDATED_BY",     "type": "VARCHAR(30)",   "domain": "LOAN",     "fk": null, "verified_description": "레코드를 최종 수정한 사용자 ID.", "lineage": { "upstream": null, "derived_with": [] } },
+    { "asset": "LOAN_APPL_HIST.RECORD_UUID",    "type": "CHAR(36)",      "domain": "LOAN",     "fk": null, "verified_description": "레코드의 고유 식별 UUID.", "lineage": { "upstream": null, "derived_with": [] } }
+  ],
+
+  "bi_assets": [
+    { "id": "field.tax_exempt", "type": "field", "tool": "Looker", "label": "세금면제 여부", "references": ["LOAN_APPL_HIST.TAX_EXMP_FLG"], "expr": "${TABLE}.TAX_EXMP_FLG" },
+    { "id": "dashboard.tax_report", "type": "dashboard", "tool": "Tableau", "label": "세금 리포트", "references": ["LOAN_APPL_HIST.TAX_EXMP_FLG", "LOAN_APPL_HIST.TAX_EXMP_RSN_CD"] },
+    { "id": "field.loan_status", "type": "field", "tool": "Looker", "label": "대출상태", "references": ["LOAN_APPL_HIST.LOAN_STAT_CD"], "expr": "${TABLE}.LOAN_STAT_CD" },
+    { "id": "field.loan_amount", "type": "field", "tool": "Looker", "label": "대출금액", "references": ["LOAN_APPL_HIST.LOAN_AMT"], "expr": "${TABLE}.LOAN_AMT" },
+    { "id": "field.interest_rate", "type": "field", "tool": "Looker", "label": "금리", "references": ["LOAN_APPL_HIST.INT_RATE"], "expr": "${TABLE}.INT_RATE" },
+    { "id": "dashboard.loan_terms", "type": "dashboard", "tool": "Looker", "label": "대출 약정 조건", "references": ["LOAN_APPL_HIST.LOAN_AMT", "LOAN_APPL_HIST.INT_RATE", "LOAN_APPL_HIST.LOAN_EXP_DT"] },
+    { "id": "field.credit_grade", "type": "field", "tool": "Looker", "label": "신용등급", "references": ["LOAN_APPL_HIST.CRDT_GRD_CD"], "expr": "${TABLE}.CRDT_GRD_CD" },
+    { "id": "field.credit_score", "type": "field", "tool": "Looker", "label": "신용점수", "references": ["LOAN_APPL_HIST.CRDT_SCR"], "expr": "${TABLE}.CRDT_SCR" },
+    { "id": "dashboard.credit_overview", "type": "dashboard", "tool": "Looker", "label": "신용 개요", "references": ["LOAN_APPL_HIST.CRDT_GRD_CD", "LOAN_APPL_HIST.CRDT_SCR"] },
+    { "id": "field.customer_no", "type": "field", "tool": "Looker", "label": "고객번호", "references": ["CUST_BASE_INFO.CUST_NO", "LOAN_APPL_HIST.CUST_NO"], "expr": "CUST_NO" },
+    { "id": "metric.bancassurance_consent_rate", "type": "metric", "tool": "Tableau", "label": "방카슈랑스 동의율", "references": ["LOAN_APPL_HIST.BNS_CD"], "expr": "COUNT(CASE WHEN BNS_CD='Y' THEN 1 END)/COUNT(CASE WHEN BNS_CD<>'X' THEN 1 END)" },
+    { "id": "metric.delinquency_rate", "type": "metric", "tool": "Looker", "label": "연체율", "references": ["LOAN_APPL_HIST.DLNQ_FLG"], "expr": "COUNT(CASE WHEN DLNQ_FLG='Y' THEN 1 END)/COUNT(*)" },
+    { "id": "dashboard.delinquency_monitor", "type": "dashboard", "tool": "Looker", "label": "연체 현황 모니터", "references": ["LOAN_APPL_HIST.DLNQ_FLG", "LOAN_APPL_HIST.DLNQ_DAYS"] },
+    { "id": "field.dim_07", "type": "field", "tool": "Tableau", "label": "dim_07", "references": ["LOAN_APPL_HIST.CLTRL_TYPE_CD"], "expr": "[Calculation_07]" },
+    { "id": "field.measure_11", "type": "field", "tool": "Tableau", "label": "측정값11", "references": ["LOAN_APPL_HIST.CLTRL_VAL_AMT"], "expr": "[Calculation_11]" },
+    { "id": "dashboard.collateral_status", "type": "dashboard", "tool": "Tableau", "label": "담보 현황", "references": ["LOAN_APPL_HIST.CLTRL_TYPE_CD", "LOAN_APPL_HIST.CLTRL_VAL_AMT"] }
+  ]
+}

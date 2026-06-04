@@ -1,0 +1,11 @@
+{
+  "_comment": "Discoverer가 신규 Term을 만들 때 적용하는 사전 설정 작명 정책. 이름을 발굴하지 않고 정책을 적용한다. Matcher가 기존 Term에 연결할 때는 작명이 불필요(기존 이름 사용).",
+  "language": "ko",
+  "priority": ["BI 표준 비즈니스명이 있으면 우선", "없으면 도메인 표준 한국어명을 컬럼 의미에 근거해 부여"],
+  "source_conflict": "코드명(약어)보다 BI/도메인 비즈니스명을 우선",
+  "examples": [
+    { "columns": "CRDT_SCR / CRDT_EVAL_DT", "applied_name": "신용평가", "rationale": "점수·평가일이 신용 평가 과정을 가리킴. 기존 '신용등급'(등급)과는 범위가 다름." },
+    { "columns": "DLNQ_FLG / DLNQ_DAYS", "applied_name": "연체", "rationale": "여부·일수가 연체 상태를 가리킴. 기존 '연체이자'(가산이자)와는 다른 개념." },
+    { "columns": "BNS_CD", "applied_name": "방카슈랑스동의", "rationale": "단독 컬럼이나 의미 명확. 코드 약어 BNS가 아닌 비즈니스 개념명." }
+  ]
+}
