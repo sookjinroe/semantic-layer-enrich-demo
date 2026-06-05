@@ -133,7 +133,7 @@ async function callModel(c, gathered, available) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       model: "claude-sonnet-4-20250514",
-      max_tokens: 1000,
+      max_tokens: 4000, // link 하니스와 동일 — 긴 출력이 잘리지 않도록 넉넉히(상한이라 실제 사용은 필요한 만큼만)
       system: SYSTEM,
       messages: [{ role: "user", content: parts.join("\n") }],
     }),
