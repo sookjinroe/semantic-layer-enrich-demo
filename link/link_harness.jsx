@@ -16,7 +16,7 @@ import { useState } from "react";
 const CLUSTER = [
   { asset: "LOAN_APPL_HIST.TAX_EXMP_FLG",   type: "CHAR(1)",       domain: "LOAN",     desc: "대출 신청 건의 세금 면제 여부 플래그. Y=면세 대상, N=과세 대상.", lineage: { upstream: "TAX_CALC_MODULE", derived_with: ["LOAN_APPL_HIST.TAX_EXMP_RSN_CD"] } },
   { asset: "LOAN_APPL_HIST.TAX_EXMP_RSN_CD",type: "CHAR(2)",       domain: "LOAN",     desc: "세금 면제가 적용된 사유 코드. 면제 근거(국가유공자·장애인·기초생활수급 등)를 분류한다.", lineage: { upstream: "TAX_CALC_MODULE", derived_with: ["LOAN_APPL_HIST.TAX_EXMP_FLG"] } },
-  { asset: "LOAN_APPL_HIST.LOAN_STAT_CD",   type: "CHAR(2)",       domain: "LOAN",     desc: "대출 신청 건의 현재 처리 상태 코드. 01=접수, 02=심사중, 03=승인, 04=거절.", lineage: { upstream: "LOAN_WORKFLOW", derived_with: [] } },
+  { asset: "LOAN_APPL_HIST.LOAN_STAT_CD",   type: "CHAR(2)",       domain: "LOAN",     desc: "대출 신청 건의 처리 상태를 나타내는 코드. 구체적 코드값 체계는 소스만으로 명확하지 않다.", lineage: { upstream: "LOAN_WORKFLOW", derived_with: [] } },
   { asset: "LOAN_APPL_HIST.LOAN_AMT",       type: "DECIMAL(15,2)", domain: "LOAN",     desc: "고객이 신청한 대출 원금 금액(원).", lineage: { upstream: "LOAN_APPL_FORM", derived_with: [] } },
   { asset: "LOAN_APPL_HIST.INT_RATE",       type: "DECIMAL(5,3)",  domain: "LOAN",     desc: "대출에 적용되는 연 이자율(%).", lineage: { upstream: "RATE_ENGINE", derived_with: ["LOAN_APPL_HIST.APLD_RATE"] } },
   { asset: "LOAN_APPL_HIST.APLD_RATE",      type: "DECIMAL(5,3)",  domain: "LOAN",     desc: "적용 비율(%). 무엇에 대한 비율인지는 소스만으로 명확하지 않다.", lineage: { upstream: "RATE_ENGINE", derived_with: ["LOAN_APPL_HIST.INT_RATE"] } },
@@ -136,7 +136,8 @@ const _wait = (ms) => new Promise((r) => setTimeout(r, ms));
 const RETRYABLE = new Set([408, 409, 425, 429, 500, 502, 503, 529]);
 
 async function callAPI(system, user, opts = {}) {
-  // 아티팩트 API 가이드: max_tokens 1000으로 보내고 한도는 프록시가 관리. 관측상 ~1000에서 잘리므로 호출당 출력을 작게 유지.
+  // max_tokens 4000. (측정 결과 프록시는 1000을 강제하지 않음 — 1000은 과거 설정값이었고, 출력이 긴 호출이 잘리던 원인이었다.
+  //  관측된 최대 출력 ~1200 토큰의 여유를 두어 4000으로. max_tokens는 상한이라 모델은 필요한 만큼만 쓴다.)
   // 일시 오류(529 Overloaded 등)·네트워크·파싱 실패는 지수 backoff로 재시도한다 — 한 번 실패로 전체가 멈추지 않게.
   const maxAttempts = opts.maxAttempts ?? 5;
   let lastErr = null;
@@ -150,7 +151,7 @@ async function callAPI(system, user, opts = {}) {
     try {
       res = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 1000, system, messages: [{ role: "user", content: user }] }),
+        body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 4000, system, messages: [{ role: "user", content: user }] }),
       });
     } catch (e) { lastErr = new Error("네트워크 오류: " + (e.message || e)); continue; } // fetch 자체 실패 → 재시도
     if (!res.ok) {

@@ -30,9 +30,9 @@ Discoverer는 경계를 *만드는* 행위 → 사용·계보가 필수, 그리�
 ### A. Matcher — 경계가 주어지면 신호는 충분하다
 | 명제 | 컬럼 | 보이는 것 |
 |---|---|---|
-| **A1 깨끗한 매칭** | LOAN_AMT·INT_RATE·LOAN_STAT_CD·CRDT_GRD_CD·CUST_NO | 구조+Desc로 기존 Term 직결. "대부분 그냥 붙는다." CRDT_GRD_CD는 근접오답(고객등급·신용평가)과 구분 |
+| **A1 깨끗한 매칭** | LOAN_AMT·INT_RATE·CRDT_GRD_CD·CUST_NO | 구조+Desc로 기존 Term 직결. "대부분 그냥 붙는다." CRDT_GRD_CD는 근접오답(고객등급·신용평가)과 구분 |
 | **A2 이름충돌 거부** | RPYMT_MTHD_CD | 이름은 `상환방식`과 닮았으나 CARD 도메인 → 거부 → 잔여. "이름 같다 ≠ 매칭" |
-| **A3 보강 매칭(term/fk)** | TAX_EXMP_FLG·RSN_CD(우산, term_detail), LOAN.CUST_NO(fk) | Desc로 애매 → term_detail/fk로 굳힘 |
+| **A3 보강 매칭(term_detail/fk)** | LOAN_STAT_CD(허용값), TAX_EXMP_FLG·RSN_CD(우산), LOAN.CUST_NO(fk) | Desc로 애매 → 디테일로 판정. **디테일이 양방향으로 작동:** LOAN_STAT_CD는 Desc가 "값 체계 불명"이라 term_detail 요청 → 대출상태 Term의 *허용값(01~04)*을 보고 **매칭 확정(HIGH)**. 반대로 RSN_CD는 term_detail을 봤더니 우산 Term이 사유 코드를 지지 못해 **거부→발굴**. 같은 term_detail 요청이 하나는 매칭, 하나는 거부로 — 디테일이 결정 근거가 됨 |
 
 > *usage를 Matcher 보강으로 쓰는 경로는 살아있다*(애매할 때 term_detail·fk에 더해 usage를 한 번 더 보는 것 — 지저분한 데이터에선 BI 라벨·공동참조가 매칭 확신을 높이는 보강이 될 수 있다). 다만 그걸 **깨끗이 시연하는 케이스(A4)는 이번 fixture에 두지 않았다** — "Desc는 애매한데 usage가 특정 Term을 콕 집어 확정"하는 상황을 인위적이지 않게 만들기 까다로웠다(BI 공동참조는 "정체"보다 "관계"를 말하는 쪽이라). usage·계보가 더 또렷이 빛나는 곳은 **발굴(Discoverer)에서 경계를 긋는 것**(B1·B2·B3)이다. APLD_RATE(적용 비율)는 Desc가 모호하고 BI 참조도 없어 매칭이 아니라 약한 발굴 후보로 검토에 간다.
 
