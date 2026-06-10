@@ -1,0 +1,17 @@
+{
+  "_comment": "Matcher가 검색·매칭하는 기존 Term 라이브러리. 실제 규모를 흉내내려 정답 외에 근접오답(distractor)을 섞었다 — 고객등급(신용등급과 '등급' 충돌), 여신한도(신용/금액류 근접), 연체이자(연체류 근접), 상환방식(CARD, 이름 충돌). 검색은 이 전체에서 후보를 뽑으므로 매칭이 자명하지 않다. linked_assets는 매칭 검증 시 Matcher가 끌어오는 '기존 연결' 증거(detail-pull)다. note는 사람용이라 모델 프롬프트엔 넣지 않는다.",
+
+  "terms": [
+    { "name": "세금면제", "domain": "LOAN",     "definition": "대출 신청 건의 세금 면제 관련 개념. 면제 여부·사유 등 속성을 포괄한다.", "valid_values": null, "linked_assets": [] },
+    { "name": "대출상태", "domain": "LOAN",     "definition": "대출 신청 건의 현재 처리 상태", "valid_values": {"01":"접수","02":"심사중","03":"승인","04":"거절"}, "linked_assets": [] },
+    { "name": "신용등급", "domain": "LOAN",     "definition": "대출 심사 시 산정되는 고객의 신용 등급", "valid_values": null, "linked_assets": [], "note": "'등급'만 가리킨다. 점수(score)·평가일은 이 Term의 범위가 아니다." },
+    { "name": "신용평가", "domain": "LOAN",     "definition": "고객의 신용 위험을 평가하는 행위 및 그 결과 지표(등급·점수 등을 포괄)", "valid_values": null, "linked_assets": [], "note": "정의가 넓어 CRDT_SCR(점수)·CRDT_EVAL_DT(평가일)가 이 Term의 확장인지 별개 신규인지 모호 — 신규/확장 판단을 Discoverer→Orion으로 넘기게 하는 의도." },
+    { "name": "고객번호", "domain": "CUSTOMER", "definition": "고객을 식별하는 고유 번호", "valid_values": null, "linked_assets": ["CUST_BASE_INFO.CUST_NO"], "note": "이미 고객 마스터의 PK에 연결돼 있다 — FK 매칭 검증의 근거." },
+    { "name": "대출금액", "domain": "LOAN",     "definition": "대출 신청·실행 원금 금액", "valid_values": null, "linked_assets": [] },
+    { "name": "금리",     "domain": "LOAN",     "definition": "대출에 적용되는 연 이자율", "valid_values": null, "linked_assets": [] },
+    { "name": "상환방식", "domain": "CARD",     "definition": "여신성(카드) 상품의 대금 상환 방식", "valid_values": {"1":"일시불","2":"할부","3":"리볼빙"}, "linked_assets": [], "note": "CARD 도메인. 대출 상환방식과 이름은 같으나 의미·값이 다름 — 이름 충돌 검증용." },
+    { "name": "고객등급", "domain": "CUSTOMER", "definition": "거래 실적에 따른 고객 관계 등급(VIP 등)", "valid_values": null, "linked_assets": [], "note": "CRDT_GRD_CD(신용등급)와 '등급'이 겹치는 근접오답." },
+    { "name": "여신한도", "domain": "LOAN",     "definition": "고객에게 부여된 여신(대출) 한도 금액", "valid_values": null, "linked_assets": [], "note": "신용·금액류 근접오답." },
+    { "name": "연체이자", "domain": "LOAN",     "definition": "연체 발생 시 부과되는 가산 이자", "valid_values": null, "linked_assets": [], "note": "DLNQ_*(연체 여부·일수)와 '연체'가 겹치지만 개념이 다른 근접오답." }
+  ]
+}

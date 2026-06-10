@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Semantic Layer Agent — 라이브 데모</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0c0e11;
+    --panel: #14171c;
+    --panel2: #1a1e24;
+    --border: #272c34;
+    --border-soft: #1d222a;
+    --text: #dadee4;
+    --muted: #8b929d;
+    --dim: #5b626c;
+    --high: #4ec98a;
+    --med: #e8b341;
+    --low: #e06b5e;
+    --accent: #e8b341;
+    --sig: #6aa9e0;
+    --lin: #b291e6;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); }
+  body { font-family: var(--sans); color: var(--text); -webkit-font-smoothing: antialiased; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  /* animate transform only — never opacity — so throttled/paused animations can't hide content */
+  @keyframes evIn { from { transform: translateY(6px); } to { transform: none; } }
+  @keyframes trayPop { 0% { transform: translateY(-4px) scale(1.06); box-shadow: 0 0 0 3px rgba(232,179,65,0.45); } 100% { transform: none; box-shadow: 0 0 0 0 rgba(232,179,65,0); } }
+  .trayPop { animation: trayPop 0.85s ease; }
+  @keyframes blink { 0%, 60% { opacity: 1; } 61%, 100% { opacity: 0; } }
+  .caret { display: inline-block; margin-left: 1px; color: var(--sig); animation: blink 1s step-end infinite; }
+  .ev { opacity: 1; }
+  .fadeIn { opacity: 1; }
+  @media (prefers-reduced-motion: no-preference) {
+    .ev { animation: evIn 0.34s ease; }
+  }
+  .row-hover { transition: background .12s; }
+  .row-hover:hover { background: rgba(255,255,255,0.04); }
+  .discCard:hover { border-color: var(--sig); background: rgba(106,169,224,0.05) !important; }
+  ::-webkit-scrollbar { width: 11px; height: 11px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: #2c323b; border-radius: 6px; border: 2px solid var(--bg); }
+  ::-webkit-scrollbar-thumb:hover { background: #3a414c; }
+  button { font-family: var(--mono); }
+  h1, h2, h3 { font-family: var(--mono); }
+</style>
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#0c0e11"/>
+    <rect x="30" y="30" width="40" height="40" fill="none" stroke="#e8b341" stroke-width="3" transform="rotate(45 50 50)"/>
+    <circle cx="50" cy="50" r="6" fill="#6aa9e0"/>
+  </svg>
+</template>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="js/ui.jsx"></script>
+<script type="text/babel" src="js/api.jsx"></script>
+<script type="text/babel" src="js/render-data.jsx"></script>
+<script type="text/babel" src="js/render-snapshot.jsx"></script>
+<script type="text/babel" src="js/link-data.jsx"></script>
+<script type="text/babel" src="js/link-snapshot.jsx"></script>
+<script type="text/babel" src="js/home-lib.jsx"></script>
+<script type="text/babel" src="js/home-sources.jsx"></script>
+<script type="text/babel" src="js/home-logic.jsx"></script>
+<script type="text/babel" src="js/home.jsx"></script>
+<script type="text/babel" src="js/render.jsx"></script>
+<script type="text/babel" src="js/link-thread.jsx"></script>
+<script type="text/babel" src="js/link-discover.jsx"></script>
+<script type="text/babel" src="js/link-panel.jsx"></script>
+<script type="text/babel" src="js/link.jsx"></script>
+<script type="text/babel" src="js/app.jsx"></script>
+</body>
+</html>
