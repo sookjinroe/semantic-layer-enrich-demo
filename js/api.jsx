@@ -20,6 +20,18 @@
 
 const API_MODEL = "claude-sonnet-4-6"; // 구 sonnet-4-20250514는 2026-06-15 retire
 
+// .env 로더 — 리포 루트의 .env(gitignore)에서 ANTHROPIC_API_KEY 를 읽는다 (로컬 실행용).
+const API_ENV_READY = (async () => {
+  try {
+    const r = await fetch(".env", { cache: "no-store" });
+    if (r.ok) {
+      const t = await r.text();
+      const m = t.match(/^\s*ANTHROPIC_API_KEY\s*=\s*["']?(sk-ant-[A-Za-z0-9_\-]+)/m);
+      if (m && !window.ANTHROPIC_KEY) window.ANTHROPIC_KEY = m[1];
+    }
+  } catch (e) {}
+})();
+
 function apiGetKey() {
   return (typeof window !== "undefined" && window.ANTHROPIC_KEY) ||
          localStorage.getItem("anthropic_key") || null;
@@ -60,6 +72,7 @@ async function apiDirectCall(system, user) {
 }
 
 async function apiComplete(system, user, opts = {}) {
+  await API_ENV_READY;
   const maxAttempts = opts.maxAttempts ?? 5;
   let lastErr = null;
   const hasProxy = !!(window.claude && typeof window.claude.complete === "function");
