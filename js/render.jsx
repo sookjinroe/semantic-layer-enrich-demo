@@ -214,43 +214,43 @@ function RenderScreen() {
   return (
     <div style={{ maxWidth: 1320, margin: "0 auto", padding: "22px 24px 60px" }}>
       <div style={{ marginBottom: 16 }}>
-        <div style={{ ...mono, fontSize: 11, letterSpacing: "0.18em", color: "var(--sig)", textTransform: "uppercase", marginBottom: 5 }}>Render · 라이브 실행</div>
+        <div style={{ ...mono, fontSize: 13, letterSpacing: "0.18em", color: "var(--sig)", textTransform: "uppercase", marginBottom: 5 }}>Render · 라이브 실행</div>
         <div style={{ display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
-          <h2 style={{ ...mono, fontSize: 21, fontWeight: 600, margin: 0 }}>컬럼 → 비즈니스 Description</h2>
+          <h2 style={{ ...mono, fontSize: 25, fontWeight: 600, margin: 0 }}>컬럼 → 비즈니스 Description</h2>
         </div>
       </div>
 
       <div style={{ display: "flex", alignItems: "center", gap: 11, flexWrap: "wrap", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)", padding: "11px 0", marginBottom: 16 }}>
-        <span style={{ ...mono, fontSize: 11, color: "var(--muted)", letterSpacing: "0.1em" }}>SOURCES</span>
+        <span style={{ ...mono, fontSize: 13, color: "var(--muted)", letterSpacing: "0.1em" }}>SOURCES</span>
         <SrcToggle on label="DB" fixed />
         <SrcToggle on={srcCatalog} label="Catalog" onClick={() => toggleSource("catalog")} />
         <SrcToggle on={srcCode} label="Code" onClick={() => toggleSource("code")} />
         <span style={{ width: 1, height: 18, background: "var(--border)", margin: "0 3px" }} />
         <SrcToggle on={expandAll} label="전체 로그" alt onClick={() => !busy && setExpandAll((v) => !v)} />
-        {storedN > 1 && <span title="소스 조합마다 결과가 따로 저장됩니다" style={{ fontFamily: "var(--mono)", fontSize: 10.5, color: "var(--dim)", letterSpacing: "0.04em" }}>⧉ {storedN}/4 조합 저장됨</span>}
-        {retryNote && <span style={{ fontSize: 11.5, color: "var(--med)", animation: "pulse 1s infinite", fontFamily: "var(--sans)" }}>↻ {retryNote}</span>}
+        {storedN > 1 && <span title="소스 조합마다 결과가 따로 저장됩니다" style={{ fontFamily: "var(--mono)", fontSize: 12.5, color: "var(--dim)", letterSpacing: "0.04em" }}>⧉ {storedN}/4 조합 저장됨</span>}
+        {retryNote && <span style={{ fontSize: 14, color: "var(--med)", animation: "pulse 1s infinite", fontFamily: "var(--sans)" }}>↻ {retryNote}</span>}
         <span style={{ flex: 1 }} />
-        <span style={{ ...mono, fontSize: 11.5 }}>
+        <span style={{ ...mono, fontSize: 14 }}>
           <span style={{ color: "var(--high)" }}>HIGH {counts.HIGH || 0}</span> · <span style={{ color: "var(--med)" }}>MED {counts.MEDIUM || 0}</span> · <span style={{ color: "var(--low)" }}>LOW {counts.LOW || 0}</span>
           <span style={{ color: "var(--dim)" }}>  ·  {doneCount}/{R.COLUMNS.length}</span>
         </span>
         {busy
-          ? <button onClick={stopAll} title="실행 중단" style={{ fontFamily: "var(--mono)", fontSize: 12, padding: "7px 16px", borderRadius: 4, cursor: "pointer", border: "1px solid var(--low)", background: "rgba(224,107,94,0.13)", color: "var(--low)" }}>■ 중단</button>
+          ? <button onClick={stopAll} title="실행 중단" style={{ fontFamily: "var(--mono)", fontSize: 14.5, padding: "7px 16px", borderRadius: 4, cursor: "pointer", border: "1px solid var(--low)", background: "rgba(224,107,94,0.13)", color: "var(--low)" }}>■ 중단</button>
           : <RunBtn busy={false} onClick={runAll} label="전체 실행" />}
         <span style={{ width: 1, alignSelf: "stretch", background: "var(--border)", margin: "3px 3px" }} />
         <button onClick={loadSnapshot} disabled={busy} title="저장된 스냅샷으로 즉시 4조합 결과 (모델 실행 없음)"
-          style={{ fontFamily: "var(--mono)", fontSize: 12, padding: "7px 13px", borderRadius: 4, cursor: busy ? "default" : "pointer", border: "1px solid var(--border)", background: "transparent", color: "var(--muted)", opacity: busy ? 0.5 : 1 }}>⚡ 스냅샷 로드</button>
+          style={{ fontFamily: "var(--mono)", fontSize: 14.5, padding: "7px 13px", borderRadius: 4, cursor: busy ? "default" : "pointer", border: "1px solid var(--border)", background: "transparent", color: "var(--muted)", opacity: busy ? 0.5 : 1 }}>⚡ 스냅샷 로드</button>
         <button onClick={() => setDevOpen((v) => !v)} title="스냅샷 유지보수"
-          style={{ fontFamily: "var(--mono)", fontSize: 15, lineHeight: 1, padding: "4px 8px", borderRadius: 4, cursor: "pointer", border: `1px solid ${devOpen ? "var(--border)" : "transparent"}`, background: devOpen ? "var(--border)" : "transparent", color: "var(--dim)" }}>⋯</button>
+          style={{ fontFamily: "var(--mono)", fontSize: 18, lineHeight: 1, padding: "4px 8px", borderRadius: 4, cursor: "pointer", border: `1px solid ${devOpen ? "var(--border)" : "transparent"}`, background: devOpen ? "var(--border)" : "transparent", color: "var(--dim)" }}>⋯</button>
       </div>
 
       {/* 숨김 트레이 — 스냅샷 유지보수(4조합 굽기) */}
       {devOpen && (
-        <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", padding: "8px 11px", marginTop: -8, marginBottom: 16, background: "var(--panel)", border: "1px dashed var(--border)", borderRadius: 6, fontFamily: "var(--mono)", fontSize: 11 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", padding: "8px 11px", marginTop: -8, marginBottom: 16, background: "var(--panel)", border: "1px dashed var(--border)", borderRadius: 6, fontFamily: "var(--mono)", fontSize: 13 }}>
           <span style={{ color: "var(--dim)", letterSpacing: "0.05em" }}>스냅샷 유지보수 · 4조합 모두 실행 → 갱신 → 받은 파일 업로드</span>
           <span style={{ flex: 1 }} />
           {storedN > 0 && !busy
-            ? <button onClick={saveSnapshot} style={{ fontFamily: "var(--mono)", fontSize: 12, padding: "7px 15px", borderRadius: 4, cursor: "pointer", border: "1px solid var(--sig)", background: "rgba(106,169,224,0.12)", color: "var(--sig)" }}>⬇ 스냅샷 갱신 ({storedN}/4)</button>
+            ? <button onClick={saveSnapshot} style={{ fontFamily: "var(--mono)", fontSize: 14.5, padding: "7px 15px", borderRadius: 4, cursor: "pointer", border: "1px solid var(--sig)", background: "rgba(106,169,224,0.12)", color: "var(--sig)" }}>⬇ 스냅샷 갱신 ({storedN}/4)</button>
             : <span style={{ color: "var(--dim)" }}>{busy ? "실행 중…" : "조합 1개 이상 실행 후 가능"}</span>}
         </div>
       )}
@@ -265,22 +265,22 @@ function RenderScreen() {
             return (
               <div key={k}>
                 {showHeader && (
-                  <div style={{ ...mono, fontSize: 10.5, color: "var(--muted)", padding: "9px 12px 5px", borderTop: "1px solid var(--border)", letterSpacing: "0.08em", background: "rgba(0,0,0,0.15)" }}>
+                  <div style={{ ...mono, fontSize: 12.5, color: "var(--muted)", padding: "9px 12px 5px", borderTop: "1px solid var(--border)", letterSpacing: "0.08em", background: "rgba(0,0,0,0.15)" }}>
                     {c.t} <span style={{ color: "var(--dim)" }}>· {tableDomain(c.t)}</span>
                   </div>
                 )}
                 <div className="row-hover" onClick={() => viewColumn(c)} style={{ padding: "7px 12px", cursor: "pointer", borderLeft: sel ? "2px solid var(--accent)" : "2px solid transparent", background: sel ? "rgba(232,179,65,0.06)" : undefined }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <U.Dot color={renderStatusColor(r)} pulsing={r && r.status === "running"} size={9} />
-                    <span style={{ ...mono, fontSize: 12.5, flex: 1 }}>{c.n}</span>
+                    <span style={{ ...mono, fontSize: 15, flex: 1 }}>{c.n}</span>
                     {r && r.status === "done" && r.confidence
                       ? <U.ConfBadge c={r.confidence} />
-                      : <span style={{ ...mono, fontSize: 10.5, color: "var(--dim)" }}>{c.type}</span>}
+                      : <span style={{ ...mono, fontSize: 12.5, color: "var(--dim)" }}>{c.type}</span>}
                     <span onClick={(e) => { e.stopPropagation(); runOne(c); }} title={r && r.status === "done" ? "다시 실행" : "실행"}
-                      style={{ ...mono, fontSize: 11, color: busy ? "var(--border)" : "var(--high)", border: `1px solid ${busy ? "var(--border)" : "var(--high)"}`, borderRadius: 3, padding: "0 6px", cursor: busy ? "default" : "pointer", lineHeight: "17px" }}>▷</span>
+                      style={{ ...mono, fontSize: 13, color: busy ? "var(--border)" : "var(--high)", border: `1px solid ${busy ? "var(--border)" : "var(--high)"}`, borderRadius: 3, padding: "0 6px", cursor: busy ? "default" : "pointer", lineHeight: "17px" }}>▷</span>
                   </div>
                   {r && r.description && (
-                    <div style={{ marginLeft: 19, marginTop: 3, fontSize: 11.5, color: "var(--muted)", fontFamily: "var(--sans)", lineHeight: 1.4, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }} title={r.description}>{r.description}</div>
+                    <div style={{ marginLeft: 19, marginTop: 3, fontSize: 14, color: "var(--muted)", fontFamily: "var(--sans)", lineHeight: 1.4, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }} title={r.description}>{r.description}</div>
                   )}
                 </div>
               </div>
@@ -308,13 +308,13 @@ function RenderPanel({ U, R, results, active, activeCol, expandAll }) {
       <div key={k}>
         {withHeader && (
           <div style={{ padding: "13px 15px", borderBottom: "1px solid var(--border)", borderTop: withHeader === "first" ? "none" : "1px solid var(--border)", background: "rgba(0,0,0,0.15)" }}>
-            <div style={{ fontFamily: "var(--mono)", fontSize: 14, color: "var(--text)" }}>{k}</div>
-            <div style={{ fontFamily: "var(--mono)", fontSize: 11, color: "var(--muted)", marginTop: 2 }}>{c.type}{c.fk ? ` · FK → ${c.fk}` : ""}{c.pk ? " · PK" : ""}</div>
+            <div style={{ fontFamily: "var(--mono)", fontSize: 17, color: "var(--text)" }}>{k}</div>
+            <div style={{ fontFamily: "var(--mono)", fontSize: 13, color: "var(--muted)", marginTop: 2 }}>{c.type}{c.fk ? ` · FK → ${c.fk}` : ""}{c.pk ? " · PK" : ""}</div>
           </div>
         )}
         <div style={{ padding: "16px 16px 6px" }}>
           {evs.map((ev, i) => <ThreadNode key={i} U={U} ev={ev} isLast={i === evs.length - 1} />)}
-          {r.error && <div style={{ color: "var(--low)", fontSize: 12.5, fontFamily: "var(--mono)", paddingLeft: 30 }}>오류: {r.error}</div>}
+          {r.error && <div style={{ color: "var(--low)", fontSize: 15, fontFamily: "var(--mono)", paddingLeft: 30 }}>오류: {r.error}</div>}
         </div>
       </div>
     );
@@ -327,7 +327,7 @@ function RenderPanel({ U, R, results, active, activeCol, expandAll }) {
   }
   if (!active) {
     return (
-      <div style={{ padding: 20, color: "var(--muted)", fontSize: 13, fontFamily: "var(--sans)", lineHeight: 1.7 }}>
+      <div style={{ padding: 20, color: "var(--muted)", fontSize: 15.5, fontFamily: "var(--sans)", lineHeight: 1.7 }}>
         왼쪽 행을 <B>클릭</B>하면 그 컬럼의 결과를 조회합니다(실행 안 함). 행의 <B accent="var(--high)">▷</B>로 실행/재실행, 상단 <B>전체 실행</B>으로 일괄 실행.
       </div>
     );
@@ -335,8 +335,8 @@ function RenderPanel({ U, R, results, active, activeCol, expandAll }) {
   const ar = results[active];
   if (!ar) {
     return (
-      <div style={{ padding: 20, color: "var(--muted)", fontSize: 13, fontFamily: "var(--sans)" }}>
-        <div style={{ fontFamily: "var(--mono)", fontSize: 14, color: "var(--text)" }}>{active}</div>
+      <div style={{ padding: 20, color: "var(--muted)", fontSize: 15.5, fontFamily: "var(--sans)" }}>
+        <div style={{ fontFamily: "var(--mono)", fontSize: 17, color: "var(--text)" }}>{active}</div>
         <div style={{ marginTop: 12 }}>아직 실행되지 않았습니다. 이 행의 <B accent="var(--high)">▷</B>를 눌러 실행하세요.</div>
       </div>
     );
@@ -367,7 +367,7 @@ function ThreadNode({ U, ev, isLast }) {
       {/* 게터: 점 + 연결선 */}
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0, width: 14 }}>
         {isAnswer
-          ? <span style={{ color, fontSize: 13, lineHeight: "16px", marginTop: 2 }}>✓</span>
+          ? <span style={{ color, fontSize: 15.5, lineHeight: "16px", marginTop: 2 }}>✓</span>
           : <span style={{ width: 9, height: 9, borderRadius: 9, background: ev.type === "think" ? "transparent" : color, border: ev.type === "think" ? `2px solid ${color}` : "none", marginTop: 4, boxShadow: ev.pending || ev.status === "requesting" ? `0 0 0 4px ${color}22` : "none", animation: (ev.pending || ev.status === "requesting") ? "pulse 1.1s infinite" : "none" }} />}
         {!isLast && <span style={{ flex: 1, width: 2, background: "var(--border)", marginTop: 4, minHeight: 16 }} />}
       </div>
@@ -397,15 +397,15 @@ function SourceNode({ U, ev }) {
     <div style={{ paddingTop: 1 }}>
       {/* 상태 줄 */}
       <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
-        <span key={ev.status} className="fadeIn" style={{ ...mono, fontSize: 12.5, letterSpacing: "0.03em", color: meta.c }}>
+        <span key={ev.status} className="fadeIn" style={{ ...mono, fontSize: 15, letterSpacing: "0.03em", color: meta.c }}>
           {requesting ? lab.req : lab.done}
         </span>
-        {ev.given && <span style={{ ...mono, fontSize: 10.5, color: "var(--dim)" }}>· 입력으로 주어짐</span>}
-        {requesting && <span style={{ ...mono, fontSize: 10.5, color: "var(--dim)", animation: "pulse 1.1s infinite" }}>…</span>}
+        {ev.given && <span style={{ ...mono, fontSize: 12.5, color: "var(--dim)" }}>· 입력으로 주어짐</span>}
+        {requesting && <span style={{ ...mono, fontSize: 12.5, color: "var(--dim)", animation: "pulse 1.1s infinite" }}>…</span>}
       </div>
       {/* 데이터 카드 (별 컴포넌트) */}
       {!requesting && (
-        <pre className="ev" style={{ ...mono, fontSize: 11.5, lineHeight: 1.6, color: "var(--text)", whiteSpace: "pre-wrap", wordBreak: "break-word", margin: "8px 0 0", padding: "10px 12px", background: "rgba(0,0,0,0.26)", border: "1px solid var(--border)", borderLeft: `2px solid ${meta.c}`, borderRadius: 4 }}>{ev.text}</pre>
+        <pre className="ev" style={{ ...mono, fontSize: 14, lineHeight: 1.6, color: "var(--text)", whiteSpace: "pre-wrap", wordBreak: "break-word", margin: "8px 0 0", padding: "10px 12px", background: "rgba(0,0,0,0.26)", border: "1px solid var(--border)", borderLeft: `2px solid ${meta.c}`, borderRadius: 4 }}>{ev.text}</pre>
       )}
     </div>
   );
@@ -416,8 +416,8 @@ function ThinkNode({ ev }) {
   return (
     <div style={{ paddingTop: 1 }}>
       {ev.pending && !ev.text
-        ? <span style={{ fontSize: 13, color: "var(--muted)", fontFamily: "var(--sans)", fontStyle: "italic", animation: "pulse 1.1s infinite" }}>생각 중…</span>
-        : <span style={{ fontSize: 13.5, lineHeight: 1.68, color: "#aab1bd", fontFamily: "var(--sans)" }}>{ev.text}</span>}
+        ? <span style={{ fontSize: 15.5, color: "var(--muted)", fontFamily: "var(--sans)", fontStyle: "italic", animation: "pulse 1.1s infinite" }}>생각 중…</span>
+        : <span style={{ fontSize: 16, lineHeight: 1.68, color: "#aab1bd", fontFamily: "var(--sans)" }}>{ev.text}</span>}
     </div>
   );
 }
@@ -427,17 +427,17 @@ function AnswerNode({ U, ev }) {
   return (
     <div style={{ paddingTop: 0 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-        <span style={{ fontFamily: "var(--mono)", fontSize: 11, color: "var(--muted)", letterSpacing: "0.06em" }}>최종 DESCRIPTION</span>
+        <span style={{ fontFamily: "var(--mono)", fontSize: 13, color: "var(--muted)", letterSpacing: "0.06em" }}>최종 DESCRIPTION</span>
         <U.ConfBadge c={ev.confidence} />
       </div>
-      <div style={{ fontSize: 14.5, lineHeight: 1.65, color: "var(--text)", fontFamily: "var(--sans)" }}>{ev.description}</div>
+      <div style={{ fontSize: 17.5, lineHeight: 1.65, color: "var(--text)", fontFamily: "var(--sans)" }}>{ev.description}</div>
     </div>
   );
 }
 
 // ---- 작은 컨트롤 ----
 function SrcToggle({ on, label, onClick, fixed, alt }) {
-  const base = { fontFamily: "var(--mono)", fontSize: 11.5, padding: "5px 11px", borderRadius: 3, userSelect: "none", letterSpacing: "0.02em" };
+  const base = { fontFamily: "var(--mono)", fontSize: 14, padding: "5px 11px", borderRadius: 3, userSelect: "none", letterSpacing: "0.02em" };
   const colorOn = alt ? "var(--sig)" : "var(--accent)";
   return (
     <span onClick={onClick} title={fixed ? "항상 켜짐" : ""}
@@ -448,10 +448,10 @@ function SrcToggle({ on, label, onClick, fixed, alt }) {
 }
 function RunBtn({ busy, onClick, label }) {
   return (
-    <button onClick={onClick} disabled={busy} style={{ fontFamily: "var(--mono)", fontSize: 12, padding: "7px 16px", borderRadius: 4, cursor: busy ? "default" : "pointer", border: "1px solid var(--high)", background: busy ? "transparent" : "rgba(78,201,138,0.12)", color: "var(--high)", opacity: busy ? 0.6 : 1 }}>{busy ? "실행 중…" : `▷ ${label}`}</button>
+    <button onClick={onClick} disabled={busy} style={{ fontFamily: "var(--mono)", fontSize: 14.5, padding: "7px 16px", borderRadius: 4, cursor: busy ? "default" : "pointer", border: "1px solid var(--high)", background: busy ? "transparent" : "rgba(78,201,138,0.12)", color: "var(--high)", opacity: busy ? 0.6 : 1 }}>{busy ? "실행 중…" : `▷ ${label}`}</button>
   );
 }
-function Empty({ children }) { return <div style={{ padding: 20, color: "var(--muted)", fontSize: 13, fontFamily: "var(--sans)", lineHeight: 1.7 }}>{children}</div>; }
+function Empty({ children }) { return <div style={{ padding: 20, color: "var(--muted)", fontSize: 15.5, fontFamily: "var(--sans)", lineHeight: 1.7 }}>{children}</div>; }
 function B({ children, accent }) { return <b style={{ color: accent || "var(--text)" }}>{children}</b>; }
 
 window.RenderScreen = RenderScreen;

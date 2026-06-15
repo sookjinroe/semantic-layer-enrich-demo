@@ -15,7 +15,7 @@ function App() {
     const on = screen === id;
     return (
       <button onClick={() => nav(id)} style={{
-        ...mono, fontSize: 13, padding: "6px 14px", borderRadius: 4, cursor: "pointer", letterSpacing: "0.02em",
+        ...mono, fontSize: 15.5, padding: "6px 14px", borderRadius: 4, cursor: "pointer", letterSpacing: "0.02em",
         border: `1px solid ${on ? (color || "var(--accent)") + "77" : "transparent"}`,
         background: on ? (color || "var(--accent)") + "1c" : "transparent",
         color: on ? (color || "var(--accent)") : "var(--muted)",
@@ -30,7 +30,7 @@ function App() {
         <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 24px", height: 54, display: "flex", alignItems: "center", gap: 16 }}>
           <button onClick={() => nav("home")} style={{ display: "flex", alignItems: "center", gap: 9, background: "none", border: "none", cursor: "pointer", padding: 0 }}>
             <span style={{ width: 11, height: 11, borderRadius: 2, background: "var(--accent)", transform: "rotate(45deg)" }} />
-            <span style={{ ...mono, fontSize: 13.5, color: "var(--text)", letterSpacing: "0.04em", fontWeight: 600 }}>Semantic Layer Agent</span>
+            <span style={{ ...mono, fontSize: 16, color: "var(--text)", letterSpacing: "0.04em", fontWeight: 600 }}>Semantic Layer Agent</span>
           </button>
           <span style={{ width: 1, height: 20, background: "var(--border)" }} />
           <div style={{ display: "flex", gap: 4 }}>
@@ -39,7 +39,7 @@ function App() {
             <NavTab id="link" label="Link" color="var(--accent)" />
           </div>
           <span style={{ flex: 1 }} />
-          <span style={{ ...mono, fontSize: 10.5, color: "var(--dim)", letterSpacing: "0.08em" }}>LIVE · 실제 모델 판단</span>
+          <span style={{ ...mono, fontSize: 12.5, color: "var(--dim)", letterSpacing: "0.08em" }}>LIVE · 실제 모델 판단</span>
         </div>
       </div>
 

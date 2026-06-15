@@ -254,9 +254,9 @@ function FlowHead({ color, title, note }) {
     <div style={{ marginBottom: 14 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
         <span style={{ width: 9, height: 9, borderRadius: 9, background: color }} />
-        <span style={{ ...hl.mono, fontSize: 14.5, fontWeight: 600, letterSpacing: "0.02em", whiteSpace: "nowrap" }}>{title}</span>
+        <span style={{ ...hl.mono, fontSize: 17.5, fontWeight: 600, letterSpacing: "0.02em", whiteSpace: "nowrap" }}>{title}</span>
       </div>
-      <div style={{ ...hl.sans, fontSize: 12, color: "var(--muted)", marginTop: 4, marginLeft: 18 }}>{note}</div>
+      <div style={{ ...hl.sans, fontSize: 14.5, color: "var(--muted)", marginTop: 4, marginLeft: 18 }}>{note}</div>
     </div>
   );
 }
@@ -271,8 +271,8 @@ function SpineNode({ tone, title, sub }) {
       borderRadius: 5, padding: "10px 13px",
       background: decide ? accent + "12" : "rgba(0,0,0,0.2)",
     }}>
-      <div style={{ ...hl.mono, fontSize: 13, color: "var(--text)" }}>{title}</div>
-      {sub && <div style={{ ...hl.sans, fontSize: 11.5, color: "var(--muted)", marginTop: 3, lineHeight: 1.5 }}>{sub}</div>}
+      <div style={{ ...hl.mono, fontSize: 15.5, color: "var(--text)" }}>{title}</div>
+      {sub && <div style={{ ...hl.sans, fontSize: 14, color: "var(--muted)", marginTop: 3, lineHeight: 1.5 }}>{sub}</div>}
     </div>
   );
 }
@@ -304,8 +304,8 @@ function BranchRow({ on, onClick, EX, k, last }) {
         transition: "border-color .12s, background .12s",
       }}>
         <span style={{ width: 7, height: 7, borderRadius: 7, background: ex.color, flexShrink: 0 }} />
-        <span style={{ ...hl.sans, fontSize: 12.5, color: "var(--text)", flex: 1, lineHeight: 1.4 }}>{ex.branch}</span>
-        <span style={{ ...hl.mono, fontSize: 11, color: active ? ex.color : "var(--dim)", whiteSpace: "nowrap" }}>{ex.outcome.conf || "SKIP"}</span>
+        <span style={{ ...hl.sans, fontSize: 15, color: "var(--text)", flex: 1, lineHeight: 1.4 }}>{ex.branch}</span>
+        <span style={{ ...hl.mono, fontSize: 13, color: active ? ex.color : "var(--dim)", whiteSpace: "nowrap" }}>{ex.outcome.conf || "SKIP"}</span>
       </div>
     </div>
   );
@@ -314,8 +314,8 @@ function BranchRow({ on, onClick, EX, k, last }) {
 function LoopNote({ children }) {
   return (
     <div style={{ display: "flex", gap: 8, marginTop: 12, padding: "9px 12px", borderRadius: 5, background: "rgba(0,0,0,0.22)", border: "1px solid var(--border)" }}>
-      <span style={{ ...hl.mono, fontSize: 12, color: "var(--muted)", flexShrink: 0 }}>↻</span>
-      <span style={{ ...hl.sans, fontSize: 12, color: "var(--muted)", lineHeight: 1.55 }}>{children}</span>
+      <span style={{ ...hl.mono, fontSize: 14.5, color: "var(--muted)", flexShrink: 0 }}>↻</span>
+      <span style={{ ...hl.sans, fontSize: 14.5, color: "var(--muted)", lineHeight: 1.55 }}>{children}</span>
     </div>
   );
 }
@@ -325,16 +325,16 @@ function DetailPanel({ U, ex, ident }) {
   return (
     <div style={{ ...hl.panel, overflow: "hidden", position: "sticky", top: 16 }}>
       <div style={{ padding: "13px 16px", borderBottom: "1px solid var(--border)", background: "rgba(0,0,0,0.2)" }}>
-        <div style={{ ...hl.mono, fontSize: 10.5, letterSpacing: "0.1em", color: "var(--muted)", textTransform: "uppercase", marginBottom: 5 }}>예시 경로</div>
+        <div style={{ ...hl.mono, fontSize: 12.5, letterSpacing: "0.1em", color: "var(--muted)", textTransform: "uppercase", marginBottom: 5 }}>예시 경로</div>
         <div style={{ display: "flex", alignItems: "center", gap: 9, flexWrap: "wrap" }}>
-          <span style={{ ...hl.mono, fontSize: 13.5, color: "var(--text)" }}>{ex.column}</span>
+          <span style={{ ...hl.mono, fontSize: 16, color: "var(--text)" }}>{ex.column}</span>
           {ex.outcome.conf ? <U.ConfBadge c={ex.outcome.conf} /> : <U.Tag border="var(--border)">SKIP</U.Tag>}
         </div>
       </div>
 
       {/* 판단 규칙 (추상) */}
       <div style={{ padding: "13px 16px", borderBottom: "1px solid var(--border)" }}>
-        <div style={{ ...hl.sans, fontSize: 13, color: "var(--text)", lineHeight: 1.62 }}>{ex.criterion}</div>
+        <div style={{ ...hl.sans, fontSize: 15.5, color: "var(--text)", lineHeight: 1.62 }}>{ex.criterion}</div>
       </div>
 
       {/* 경로 트레이스 */}
@@ -356,9 +356,9 @@ function TraceStep({ s, last }) {
         {!last && <span style={{ flex: 1, width: 2, background: "var(--border)", marginTop: 3, minHeight: 14 }} />}
       </div>
       <div style={{ flex: 1, paddingBottom: 13, minWidth: 0 }}>
-        <div style={{ ...hl.mono, fontSize: 10.5, letterSpacing: "0.06em", color: c, textTransform: "uppercase", marginBottom: 2 }}>{s.k}</div>
-        <div style={{ ...hl.mono, fontSize: 12, color: "var(--text)", lineHeight: 1.5, wordBreak: "break-word" }}>{s.label}</div>
-        {s.note && <div style={{ ...hl.sans, fontSize: 11.5, color: "var(--muted)", marginTop: 2, lineHeight: 1.45 }}>{s.note}</div>}
+        <div style={{ ...hl.mono, fontSize: 12.5, letterSpacing: "0.06em", color: c, textTransform: "uppercase", marginBottom: 2 }}>{s.k}</div>
+        <div style={{ ...hl.mono, fontSize: 14.5, color: "var(--text)", lineHeight: 1.5, wordBreak: "break-word" }}>{s.label}</div>
+        {s.note && <div style={{ ...hl.sans, fontSize: 14, color: "var(--muted)", marginTop: 2, lineHeight: 1.45 }}>{s.note}</div>}
       </div>
     </div>
   );
@@ -368,14 +368,14 @@ function Outcome({ U, o }) {
   return (
     <div style={{ display: "flex", gap: 12 }}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0, width: 14 }}>
-        <span style={{ color: o.conf ? U.CONF_COLOR[o.conf] : "var(--dim)", fontSize: 13, lineHeight: "16px", marginTop: 1 }}>✓</span>
+        <span style={{ color: o.conf ? U.CONF_COLOR[o.conf] : "var(--dim)", fontSize: 15.5, lineHeight: "16px", marginTop: 1 }}>✓</span>
       </div>
       <div style={{ flex: 1, paddingBottom: 6, minWidth: 0 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-          <span style={{ ...hl.mono, fontSize: 10.5, letterSpacing: "0.06em", color: "var(--muted)", textTransform: "uppercase" }}>결과</span>
+          <span style={{ ...hl.mono, fontSize: 12.5, letterSpacing: "0.06em", color: "var(--muted)", textTransform: "uppercase" }}>결과</span>
           {o.conf && <U.ConfBadge c={o.conf} />}
         </div>
-        <div style={{ ...hl.sans, fontSize: 13, color: "var(--text)", lineHeight: 1.55 }}>{o.text}</div>
+        <div style={{ ...hl.sans, fontSize: 15.5, color: "var(--text)", lineHeight: 1.55 }}>{o.text}</div>
       </div>
     </div>
   );
@@ -389,8 +389,8 @@ function AgentTab({ on, color, onClick, title, sub }) {
       background: on ? color + "16" : "transparent", transition: "all .12s",
     }}>
       <span style={{ width: 9, height: 9, borderRadius: 9, background: on ? color : "var(--dim)" }} />
-      <span style={{ ...hl.mono, fontSize: 14, fontWeight: 600, color: on ? "var(--text)" : "var(--muted)" }}>{title}</span>
-      <span style={{ ...hl.mono, fontSize: 11.5, color: on ? color : "var(--dim)", whiteSpace: "nowrap" }}>· {sub}</span>
+      <span style={{ ...hl.mono, fontSize: 17, fontWeight: 600, color: on ? "var(--text)" : "var(--muted)" }}>{title}</span>
+      <span style={{ ...hl.mono, fontSize: 14, color: on ? color : "var(--dim)", whiteSpace: "nowrap" }}>· {sub}</span>
     </button>
   );
 }

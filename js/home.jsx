@@ -33,10 +33,10 @@ function HomeScreen({ nav }) {
       {/* 히어로 (compact) */}
       <div style={{ borderBottom: "1px solid var(--border)", background: "linear-gradient(180deg, rgba(255,255,255,0.018), transparent)" }}>
         <div style={{ ...wrap, paddingTop: 44, paddingBottom: 34 }}>
-          <div style={{ ...mono, fontSize: 11.5, letterSpacing: "0.22em", color: "var(--muted)", textTransform: "uppercase", marginBottom: 16 }}>
+          <div style={{ ...mono, fontSize: 14, letterSpacing: "0.22em", color: "var(--muted)", textTransform: "uppercase", marginBottom: 16 }}>
             Semantic Layer · Enrichment Agent — 라이브 데모
           </div>
-          <h1 style={{ fontSize: 33, lineHeight: 1.22, fontWeight: 600, margin: 0, letterSpacing: "-0.01em", maxWidth: 880, textWrap: "balance" }}>
+          <h1 style={{ fontSize: 39.5, lineHeight: 1.22, fontWeight: 600, margin: 0, letterSpacing: "-0.01em", maxWidth: 880, textWrap: "balance" }}>
             시맨틱 레이어 증강 에이전트
           </h1>
         </div>
@@ -79,7 +79,7 @@ function SectionHead({ children }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
       <span style={{ width: 3, height: 17, background: "var(--accent)", borderRadius: 2 }} />
-      <h2 style={{ fontFamily: "var(--mono)", fontSize: 16.5, fontWeight: 600, margin: 0, letterSpacing: "0.01em", color: "var(--text)", whiteSpace: "nowrap" }}>{children}</h2>
+      <h2 style={{ fontFamily: "var(--mono)", fontSize: 20, fontWeight: 600, margin: 0, letterSpacing: "0.01em", color: "var(--text)", whiteSpace: "nowrap" }}>{children}</h2>
       <span style={{ flex: 1, height: 1, background: "var(--border)" }} />
     </div>
   );
@@ -92,12 +92,12 @@ function EntryCard({ kind, color, tagline, desc, onClick }) {
       style={{ background: "var(--panel)", border: `1px solid ${h ? color + "66" : "var(--border)"}`, borderRadius: 7, padding: "20px 22px", cursor: "pointer", transition: "border-color .14s", display: "flex", flexDirection: "column", gap: 11 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
         <span style={{ width: 9, height: 9, borderRadius: 9, background: color }} />
-        <span style={{ fontFamily: "var(--mono)", fontSize: 18, fontWeight: 600, letterSpacing: "0.02em" }}>{kind}</span>
-        <span style={{ fontFamily: "var(--mono)", fontSize: 12, color: "var(--muted)", whiteSpace: "nowrap" }}>· {tagline}</span>
+        <span style={{ fontFamily: "var(--mono)", fontSize: 21.5, fontWeight: 600, letterSpacing: "0.02em" }}>{kind}</span>
+        <span style={{ fontFamily: "var(--mono)", fontSize: 14.5, color: "var(--muted)", whiteSpace: "nowrap" }}>· {tagline}</span>
         <span style={{ flex: 1 }} />
-        <span style={{ fontFamily: "var(--mono)", fontSize: 13, color: h ? color : "var(--muted)", transition: "color .14s" }}>실행 →</span>
+        <span style={{ fontFamily: "var(--mono)", fontSize: 15.5, color: h ? color : "var(--muted)", transition: "color .14s" }}>실행 →</span>
       </div>
-      <p style={{ fontSize: 13.5, lineHeight: 1.6, color: "var(--muted)", margin: 0, fontFamily: "var(--sans)" }}>{desc}</p>
+      <p style={{ fontSize: 16, lineHeight: 1.6, color: "var(--muted)", margin: 0, fontFamily: "var(--sans)" }}>{desc}</p>
     </div>
   );
 }
@@ -105,18 +105,18 @@ function EntryCard({ kind, color, tagline, desc, onClick }) {
 function ConfLegendStrip() {
   const chip = (c, name, desc) => (
     <span style={{ display: "inline-flex", alignItems: "baseline", gap: 7 }}>
-      <span style={{ fontFamily: "var(--mono)", fontSize: 11, fontWeight: 600, padding: "1px 7px", borderRadius: 3, background: `var(--${c})`, color: "#0c0e11" }}>{name}</span>
-      <span style={{ fontSize: 12, color: "var(--muted)", fontFamily: "var(--sans)" }}>{desc}</span>
+      <span style={{ fontFamily: "var(--mono)", fontSize: 13, fontWeight: 600, padding: "1px 7px", borderRadius: 3, background: `var(--${c})`, color: "#0c0e11" }}>{name}</span>
+      <span style={{ fontSize: 14.5, color: "var(--muted)", fontFamily: "var(--sans)" }}>{desc}</span>
     </span>
   );
   return (
     <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 18, padding: "13px 18px", background: "var(--panel)", border: "1px solid var(--border)", borderRadius: 7 }}>
-      <span style={{ fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.1em", color: "var(--muted)", textTransform: "uppercase" }}>신뢰도</span>
+      <span style={{ fontFamily: "var(--mono)", fontSize: 13, letterSpacing: "0.1em", color: "var(--muted)", textTransform: "uppercase" }}>신뢰도</span>
       {chip("high", "HIGH", "확신 · 자동 반영")}
       {chip("med", "MEDIUM", "검증 권장")}
       {chip("low", "LOW", "추측 · 신호 부재 → 사람 검토")}
       <span style={{ width: 1, height: 16, background: "var(--border)" }} />
-      <span style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 12, color: "var(--muted)", fontFamily: "var(--sans)" }}>
+      <span style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 14.5, color: "var(--muted)", fontFamily: "var(--sans)" }}>
         <span style={{ width: 9, height: 9, borderRadius: 2, background: "var(--sig)" }} /> 소스·신호
         <span style={{ width: 9, height: 9, borderRadius: 2, background: "var(--lin)", marginLeft: 8 }} /> 계보
       </span>
@@ -127,7 +127,7 @@ function ConfLegendStrip() {
 function DataTab({ children, active, color, onClick }) {
   return (
     <button onClick={onClick} style={{
-      fontFamily: "var(--mono)", fontSize: 12.5, padding: "7px 15px", borderRadius: 4, cursor: "pointer",
+      fontFamily: "var(--mono)", fontSize: 15, padding: "7px 15px", borderRadius: 4, cursor: "pointer",
       border: `1px solid ${active ? color + "77" : "var(--border)"}`,
       background: active ? color + "1f" : "transparent", color: active ? color : "var(--muted)", letterSpacing: "0.03em",
     }}>{children}</button>

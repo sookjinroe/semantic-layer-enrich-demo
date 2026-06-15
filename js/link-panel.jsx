@@ -14,7 +14,7 @@ function StageRouter({ U, L, phase, busy, skips, mlog, assign, residue, groups, 
   const { MatcherThread } = window.LinkThreadMod;
   const { DiscoveryWorkspace } = window.LinkDiscMod;
   const mono = { fontFamily: "var(--mono)" };
-  const pad = { padding: 20, color: "var(--muted)", fontSize: 13, fontFamily: "var(--sans)", lineHeight: 1.75 };
+  const pad = { padding: 20, color: "var(--muted)", fontSize: 15.5, fontFamily: "var(--sans)", lineHeight: 1.75 };
   const residueCount = residue ? residue.length : 0;
 
   if (phase === "idle") {
@@ -33,7 +33,7 @@ function StageRouter({ U, L, phase, busy, skips, mlog, assign, residue, groups, 
       const c = byAsset[activeAsset];
       return (
         <div style={pad}>
-          <div style={{ ...mono, fontSize: 14, color: "var(--text)" }}>{activeAsset}</div>
+          <div style={{ ...mono, fontSize: 17, color: "var(--text)" }}>{activeAsset}</div>
           <div style={{ marginTop: 10 }}>기술/운영 컬럼으로 판단되어 <b style={{ color: "var(--text)" }}>국면0에서 필터</b>되었습니다 — 의미 매칭 대상이 아닙니다. {c ? `(${c.type})` : ""}</div>
         </div>
       );
@@ -49,7 +49,7 @@ function StageRouter({ U, L, phase, busy, skips, mlog, assign, residue, groups, 
       const title = entry && entry.decision === "reject" ? "잔여 → 2막 발견 입력" : null;
       return <MatcherThread U={U} L={L} asset={activeAsset} events={events} title={title} />;
     }
-    return <div style={pad}><div style={{ ...mono, fontSize: 14, color: "var(--text)" }}>{activeAsset}</div><div style={{ marginTop: 10 }}>아직 처리 전입니다.</div></div>;
+    return <div style={pad}><div style={{ ...mono, fontSize: 17, color: "var(--text)" }}>{activeAsset}</div><div style={{ marginTop: 10 }}>아직 처리 전입니다.</div></div>;
   }
 
   // 활성 행 없음 — 막에 따라
@@ -63,16 +63,16 @@ function StageRouter({ U, L, phase, busy, skips, mlog, assign, residue, groups, 
     // 핸드오프 프롬프트 — 1막 완료, 잔여를 2막 입력으로
     return (
       <div style={{ padding: "22px 20px", fontFamily: "var(--sans)" }}>
-        <div style={{ ...mono, fontSize: 12, color: "var(--high)", letterSpacing: "0.08em", marginBottom: 8 }}>① 연결 완료</div>
-        <div style={{ fontSize: 14.5, color: "var(--text)", lineHeight: 1.6, marginBottom: 6 }}>
+        <div style={{ ...mono, fontSize: 14.5, color: "var(--high)", letterSpacing: "0.08em", marginBottom: 8 }}>① 연결 완료</div>
+        <div style={{ fontSize: 17.5, color: "var(--text)", lineHeight: 1.6, marginBottom: 6 }}>
           기존 Term에 못 붙인 <b style={{ color: "var(--text)" }}>잔여 {residueCount}개</b>가 트레이에 모였습니다.
         </div>
-        <div style={{ fontSize: 13, color: "var(--muted)", lineHeight: 1.65, marginBottom: 16 }}>
+        <div style={{ fontSize: 15.5, color: "var(--muted)", lineHeight: 1.65, marginBottom: 16 }}>
           이들은 카탈로그에 이름이 없던 컬럼입니다. <b style={{ color: "var(--accent)" }}>② 발견</b>은 이 잔여를 사용·계보 신호로 묶어, 흩어진 컬럼을 하나의 새 개념으로 수렴시켜 제안합니다.
         </div>
         {residueCount > 0
-          ? <button onClick={onDiscover} disabled={!canDiscover} style={{ ...mono, fontSize: 13, padding: "9px 18px", borderRadius: 5, cursor: canDiscover ? "pointer" : "default", border: "1px solid var(--accent)", background: "rgba(232,179,65,0.14)", color: "var(--accent)", opacity: canDiscover ? 1 : 0.6 }}>② 발견 실행 ▷</button>
-          : <div style={{ fontSize: 13, color: "var(--muted)" }}>잔여가 없습니다 — 모든 컬럼이 기존 Term에 연결되었습니다.</div>}
+          ? <button onClick={onDiscover} disabled={!canDiscover} style={{ ...mono, fontSize: 15.5, padding: "9px 18px", borderRadius: 5, cursor: canDiscover ? "pointer" : "default", border: "1px solid var(--accent)", background: "rgba(232,179,65,0.14)", color: "var(--accent)", opacity: canDiscover ? 1 : 0.6 }}>② 발견 실행 ▷</button>
+          : <div style={{ fontSize: 15.5, color: "var(--muted)" }}>잔여가 없습니다 — 모든 컬럼이 기존 Term에 연결되었습니다.</div>}
       </div>
     );
   }
@@ -83,15 +83,15 @@ function StageRouter({ U, L, phase, busy, skips, mlog, assign, residue, groups, 
   if (filter === "match") {
     return (
       <div style={pad}>
-        <div style={{ ...mono, fontSize: 12, color: "var(--high)", letterSpacing: "0.08em", marginBottom: 8 }}>보기 · 연결</div>
-        <div style={{ color: "var(--text)", fontSize: 13.5, lineHeight: 1.6 }}>왼쪽에서 <b style={{ color: "var(--high)" }}>연결</b>된 컬럼을 선택하면 그 컬럼이 어떻게 기존 Term에 연결됐는지 추론을 다시 펼칩니다.</div>
-        <div style={{ marginTop: 10, fontSize: 12.5, color: "var(--dim)" }}>발견 개념은 ‘발견’ 또는 ‘전체’ 보기에서 확인합니다.</div>
+        <div style={{ ...mono, fontSize: 14.5, color: "var(--high)", letterSpacing: "0.08em", marginBottom: 8 }}>보기 · 연결</div>
+        <div style={{ color: "var(--text)", fontSize: 16, lineHeight: 1.6 }}>왼쪽에서 <b style={{ color: "var(--high)" }}>연결</b>된 컬럼을 선택하면 그 컬럼이 어떻게 기존 Term에 연결됐는지 추론을 다시 펼칩니다.</div>
+        <div style={{ marginTop: 10, fontSize: 15, color: "var(--dim)" }}>발견 개념은 ‘발견’ 또는 ‘전체’ 보기에서 확인합니다.</div>
       </div>
     );
   }
   return (
     <div>
-      {err && <div style={{ color: "var(--low)", fontSize: 12.5, ...mono, padding: "12px 16px" }}>오류: {err}</div>}
+      {err && <div style={{ color: "var(--low)", fontSize: 15, ...mono, padding: "12px 16px" }}>오류: {err}</div>}
       <DiscoveryWorkspace U={U} L={L} phase={phase} groups={groups} concepts={concepts} judgingIdx={-1} liveJudge={null} residue={residue} residueCount={residueCount} onCardFocus={onCardFocus} />
     </div>
   );

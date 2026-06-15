@@ -20,12 +20,12 @@ function BasisBox({ basis, streaming, premise }) {
   return (
     <div style={{ borderLeft: "2px solid var(--sig)", paddingLeft: 11 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 5 }}>
-        <span style={{ ...mono, fontSize: 11, color: "var(--sig)", letterSpacing: "0.06em", whiteSpace: "nowrap" }}>{premise ? "묶은 신호 · 1단계 확정" : "이 컬럼들을 묶은 신호"}</span>
-        {premise && <span style={{ ...mono, fontSize: 11, color: "var(--dim)" }}>✓</span>}
+        <span style={{ ...mono, fontSize: 13, color: "var(--sig)", letterSpacing: "0.06em", whiteSpace: "nowrap" }}>{premise ? "묶은 신호 · 1단계 확정" : "이 컬럼들을 묶은 신호"}</span>
+        {premise && <span style={{ ...mono, fontSize: 13, color: "var(--dim)" }}>✓</span>}
       </div>
       {empty && streaming
-        ? <span style={{ fontSize: 12.5, color: "var(--muted)", fontStyle: "italic", animation: "pulse 1s infinite" }}>묶은 근거 쓰는 중…</span>
-        : <div style={{ fontSize: 13, lineHeight: 1.6, color: "var(--text)", fontFamily: "var(--sans)" }}>
+        ? <span style={{ fontSize: 15, color: "var(--muted)", fontStyle: "italic", animation: "pulse 1s infinite" }}>묶은 근거 쓰는 중…</span>
+        : <div style={{ fontSize: 15.5, lineHeight: 1.6, color: "var(--text)", fontFamily: "var(--sans)" }}>
             {basis}{streaming && <span className="caret">▍</span>}
           </div>}
     </div>
@@ -39,7 +39,7 @@ function Chips({ U, L, cols, pop }) {
   return (
     <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
       {cols.map((a) => (
-        <span key={a} className={pop ? "trayPop" : ""} style={{ ...mono, fontSize: 11.5, color: "var(--text)", border: "1px solid var(--border)", borderRadius: 4, padding: "2px 9px", background: "rgba(0,0,0,0.25)" }}>{col(a)}</span>
+        <span key={a} className={pop ? "trayPop" : ""} style={{ ...mono, fontSize: 14, color: "var(--text)", border: "1px solid var(--border)", borderRadius: 4, padding: "2px 9px", background: "rgba(0,0,0,0.25)" }}>{col(a)}</span>
       ))}
     </div>
   );
@@ -52,8 +52,8 @@ function SigChip({ kind, value, tone }) {
   const c = tone === "lineage" ? "var(--lin)" : "var(--sig)";
   const tint = tone === "lineage" ? "rgba(178,145,230,0.10)" : "rgba(106,169,224,0.10)";
   return (
-    <span style={{ fontFamily: "var(--mono)", fontSize: 11.5, display: "inline-flex", gap: 6, alignItems: "baseline", borderRadius: 4, padding: "3px 9px", background: tint, border: `1px solid ${c}38`, maxWidth: "100%" }}>
-      <span style={{ color: c, fontSize: 10, letterSpacing: "0.03em", flexShrink: 0 }}>{kind}</span>
+    <span style={{ fontFamily: "var(--mono)", fontSize: 14, display: "inline-flex", gap: 6, alignItems: "baseline", borderRadius: 4, padding: "3px 9px", background: tint, border: `1px solid ${c}38`, maxWidth: "100%" }}>
+      <span style={{ color: c, fontSize: 12, letterSpacing: "0.03em", flexShrink: 0 }}>{kind}</span>
       <span style={{ color: "var(--text)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{value}</span>
     </span>
   );
@@ -64,11 +64,11 @@ function SigRow({ label, tone, chips }) {
     <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
       <span style={{ display: "inline-flex", alignItems: "center", gap: 5, width: 46, flexShrink: 0, paddingTop: 4 }}>
         <span style={{ width: 5, height: 5, borderRadius: 5, background: c, flexShrink: 0 }} />
-        <span style={{ fontFamily: "var(--mono)", fontSize: 11, color: c, letterSpacing: "0.04em" }}>{label}</span>
+        <span style={{ fontFamily: "var(--mono)", fontSize: 13, color: c, letterSpacing: "0.04em" }}>{label}</span>
       </span>
       {chips.length
         ? <div style={{ display: "flex", flexWrap: "wrap", gap: 5, minWidth: 0 }}>{chips}</div>
-        : <span style={{ fontSize: 11.5, color: "var(--dim)", fontFamily: "var(--sans)", paddingTop: 3 }}>신호 없음</span>}
+        : <span style={{ fontSize: 14, color: "var(--dim)", fontFamily: "var(--sans)", paddingTop: 3 }}>신호 없음</span>}
     </div>
   );
 }
@@ -82,7 +82,7 @@ function Verification({ U, L, cols, revealed, residue }) {
 
   return (
     <div>
-      <div style={{ ...mono, fontSize: 11, color: "var(--muted)", letterSpacing: "0.06em", marginBottom: 9 }}>수집 신호</div>
+      <div style={{ ...mono, fontSize: 13, color: "var(--muted)", letterSpacing: "0.06em", marginBottom: 9 }}>수집 신호</div>
       <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
         {visible.map((a, idx) => {
           const c = byAsset[a]; if (!c) return null;
@@ -98,7 +98,7 @@ function Verification({ U, L, cols, revealed, residue }) {
           (lin.derived_with || []).forEach((x, i) => linChips.push(<SigChip key={"p" + i} kind="파생" value={col(x)} tone="lineage" />));
           return (
             <div key={a} className="fadeIn" style={{ borderTop: idx > 0 ? "1px solid var(--border-soft)" : "none", paddingTop: idx > 0 ? 11 : 0, paddingBottom: 11 }}>
-              <div style={{ ...mono, fontSize: 12, color: "var(--text)", marginBottom: 8 }}>{col(a)} <span style={{ color: "var(--dim)" }}>· {c.type}</span></div>
+              <div style={{ ...mono, fontSize: 14.5, color: "var(--text)", marginBottom: 8 }}>{col(a)} <span style={{ color: "var(--dim)" }}>· {c.type}</span></div>
               <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
                 <SigRow label="usage" tone="bi" chips={biChips} />
                 <SigRow label="lineage" tone="lineage" chips={linChips} />
@@ -107,7 +107,7 @@ function Verification({ U, L, cols, revealed, residue }) {
           );
         })}
         {revealed != null && revealed < total && (
-          <div style={{ ...mono, fontSize: 12, color: "var(--muted)", animation: "pulse 1s infinite", paddingTop: 4 }}>다음 컬럼 신호 읽는 중… ({revealed}/{total})</div>
+          <div style={{ ...mono, fontSize: 14.5, color: "var(--muted)", animation: "pulse 1s infinite", paddingTop: 4 }}>다음 컬럼 신호 읽는 중… ({revealed}/{total})</div>
         )}
       </div>
 
@@ -115,9 +115,9 @@ function Verification({ U, L, cols, revealed, residue }) {
       {rejects.length > 0 && (revealed == null || revealed >= total) && (
         <div style={{ marginTop: 10 }}>
           <button onClick={() => setRejOpen((o) => !o)} style={{ display: "flex", alignItems: "center", gap: 7, width: "100%", textAlign: "left", background: "transparent", border: "1px dashed var(--border)", borderRadius: 4, padding: "6px 9px", cursor: "pointer" }}>
-            <span style={{ ...mono, fontSize: 10.5, color: "var(--muted)", transition: "transform .15s", transform: rejOpen ? "rotate(90deg)" : "none" }}>▶</span>
-            <span style={{ ...mono, fontSize: 10.5, color: "var(--muted)", letterSpacing: "0.04em", flex: 1 }}>① 연결에서 보류한 이유</span>
-            <span style={{ ...mono, fontSize: 10, color: "var(--dim)", border: "1px solid var(--border)", borderRadius: 3, padding: "0 6px" }}>{rejects.length}</span>
+            <span style={{ ...mono, fontSize: 12.5, color: "var(--muted)", transition: "transform .15s", transform: rejOpen ? "rotate(90deg)" : "none" }}>▶</span>
+            <span style={{ ...mono, fontSize: 12.5, color: "var(--muted)", letterSpacing: "0.04em", flex: 1 }}>① 연결에서 보류한 이유</span>
+            <span style={{ ...mono, fontSize: 12, color: "var(--dim)", border: "1px solid var(--border)", borderRadius: 3, padding: "0 6px" }}>{rejects.length}</span>
           </button>
           {rejOpen && (
             <div style={{ display: "flex", flexDirection: "column", gap: 6, marginTop: 7 }}>
@@ -195,12 +195,12 @@ function ConvergeNode({ U, L, group, gi, concept, live, mode, residue, onFocus }
       <div style={{ padding: "13px 15px", borderBottom: "1px solid var(--border)", background: "rgba(0,0,0,0.15)" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <U.Dot color={titleDot} size={9} pulsing={mode === "judging" && step !== "verdict"} />
-          <span style={{ ...mono, fontSize: 14, color: titleProvisional ? "var(--muted)" : "var(--text)", fontStyle: titleProvisional ? "italic" : "normal", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{titleName}</span>
+          <span style={{ ...mono, fontSize: 17, color: titleProvisional ? "var(--muted)" : "var(--text)", fontStyle: titleProvisional ? "italic" : "normal", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{titleName}</span>
           <span style={{ flex: 1 }} />
-          {mode === "done" && <span style={{ ...mono, fontSize: 11, color: "var(--dim)" }}>▾</span>}
-          {mode === "review" && onFocus && <span onClick={(e) => { e.stopPropagation(); onFocus(focusAsset); }} style={{ ...mono, fontSize: 10.5, color: "var(--muted)", cursor: "pointer", border: "1px solid var(--border)", borderRadius: 3, padding: "0 7px", lineHeight: "18px" }}>접기 ▴</span>}
+          {mode === "done" && <span style={{ ...mono, fontSize: 13, color: "var(--dim)" }}>▾</span>}
+          {mode === "review" && onFocus && <span onClick={(e) => { e.stopPropagation(); onFocus(focusAsset); }} style={{ ...mono, fontSize: 12.5, color: "var(--muted)", cursor: "pointer", border: "1px solid var(--border)", borderRadius: 3, padding: "0 7px", lineHeight: "18px" }}>접기 ▴</span>}
         </div>
-        <div style={{ ...mono, fontSize: 11, color: "var(--muted)", marginTop: 3, display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
+        <div style={{ ...mono, fontSize: 13, color: "var(--muted)", marginTop: 3, display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
           <span>군집 {gi + 1}</span>
           <span style={{ color: "var(--dim)" }}>·</span>
           <span>컬럼 {cols.length}</span>
@@ -234,19 +234,19 @@ function ConvergeNode({ U, L, group, gi, concept, live, mode, residue, onFocus }
       {showThinking && (
         <div style={{ padding: "13px 15px", borderTop: "1px solid var(--border-soft)" }}>
           {reasoning
-            ? <span style={{ fontSize: 13.5, lineHeight: 1.68, color: "#aab1bd", fontFamily: "var(--sans)" }}>{reasoning}{live && step === "thinking" && <span className="caret">▍</span>}</span>
-            : <span style={{ fontSize: 13, color: "var(--muted)", fontStyle: "italic", fontFamily: "var(--sans)", animation: "pulse 1.1s infinite" }}>생각 중…</span>}
+            ? <span style={{ fontSize: 16, lineHeight: 1.68, color: "#aab1bd", fontFamily: "var(--sans)" }}>{reasoning}{live && step === "thinking" && <span className="caret">▍</span>}</span>
+            : <span style={{ fontSize: 15.5, color: "var(--muted)", fontStyle: "italic", fontFamily: "var(--sans)", animation: "pulse 1.1s infinite" }}>생각 중…</span>}
         </div>
       )}
 
       {/* 결과 상세 — 개념명·결정·신뢰도는 헤더에. 본문엔 '판단을 가른 신호'·매칭 Term만. */}
       {showVerdict && (driving || (expanded && concept && concept.matched_term)) && (
         <div style={{ padding: "12px 15px 13px", borderTop: "1px solid var(--border-soft)" }}>
-          {expanded && concept && concept.matched_term && <div style={{ ...mono, fontSize: 12, color: "var(--muted)", marginBottom: driving ? 6 : 0 }}>매칭 Term: "{concept.matched_term}"</div>}
+          {expanded && concept && concept.matched_term && <div style={{ ...mono, fontSize: 14.5, color: "var(--muted)", marginBottom: driving ? 6 : 0 }}>매칭 Term: "{concept.matched_term}"</div>}
           {driving && (
             <div>
-              <div style={{ ...mono, fontSize: 10.5, color: "var(--muted)", letterSpacing: "0.04em", marginBottom: 4 }}>제안 근거</div>
-              <div style={{ fontSize: 13, lineHeight: 1.6, color: "var(--text)", fontFamily: "var(--sans)" }}>{driving}</div>
+              <div style={{ ...mono, fontSize: 12.5, color: "var(--muted)", letterSpacing: "0.04em", marginBottom: 4 }}>제안 근거</div>
+              <div style={{ fontSize: 15.5, lineHeight: 1.6, color: "var(--text)", fontFamily: "var(--sans)" }}>{driving}</div>
             </div>
           )}
         </div>
@@ -265,8 +265,8 @@ function Stepper({ stage }) {
     const c = on ? "var(--accent)" : done ? "var(--high)" : "var(--dim)";
     return (
       <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-        <span style={{ ...mono, fontSize: 10, width: 16, height: 16, lineHeight: "15px", textAlign: "center", borderRadius: 8, border: `1px solid ${c}`, color: on ? "#0c0e11" : c, background: on ? "var(--accent)" : "transparent" }}>{done ? "✓" : n}</span>
-        <span style={{ ...mono, fontSize: 11, color: c, letterSpacing: "0.03em" }}>{label}</span>
+        <span style={{ ...mono, fontSize: 12, width: 16, height: 16, lineHeight: "15px", textAlign: "center", borderRadius: 8, border: `1px solid ${c}`, color: on ? "#0c0e11" : c, background: on ? "var(--accent)" : "transparent" }}>{done ? "✓" : n}</span>
+        <span style={{ ...mono, fontSize: 13, color: c, letterSpacing: "0.03em" }}>{label}</span>
       </span>
     );
   };
@@ -304,13 +304,13 @@ function DiscoveryWorkspace({ U, L, phase, groups, concepts, judgingIdx, liveJud
     <div>
       {/* 가벼운 캐션 — 카드 헤더가 아니다(군집 카드가 곀 단일 카드). 제목 + 스테퍼. */}
       <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap", padding: "13px 16px 0" }}>
-        <div style={{ ...mono, fontSize: 12, letterSpacing: "0.06em", color: "var(--muted)" }}>{title}</div>
+        <div style={{ ...mono, fontSize: 14.5, letterSpacing: "0.06em", color: "var(--muted)" }}>{title}</div>
         <span style={{ flex: 1 }} />
         <Stepper stage={stage} />
       </div>
 
       <div style={{ padding: "15px 16px 12px" }}>
-        {grouping && <div style={{ ...mono, fontSize: 12.5, color: "var(--accent)", animation: "pulse 1s infinite" }}>잔여를 usage·lineage 신호로 군집화 중…</div>}
+        {grouping && <div style={{ ...mono, fontSize: 15, color: "var(--accent)", animation: "pulse 1s infinite" }}>잔여를 usage·lineage 신호로 군집화 중…</div>}
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 12, alignItems: "start" }}>
           {gl.map((g, i) => {
@@ -339,7 +339,7 @@ function DiscoveryWorkspace({ U, L, phase, groups, concepts, judgingIdx, liveJud
         </div>
 
         {!grouping && !clustering && gl.length === 0 && phase === "done" && (
-          <div style={{ fontSize: 13, color: "var(--muted)", fontFamily: "var(--sans)" }}>잔여 컬럼이 없습니다 — 1막에서 모두 기존 Term에 연결되었습니다.</div>
+          <div style={{ fontSize: 15.5, color: "var(--muted)", fontFamily: "var(--sans)" }}>잔여 컬럼이 없습니다 — 1막에서 모두 기존 Term에 연결되었습니다.</div>
         )}
       </div>
     </div>

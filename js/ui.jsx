@@ -12,7 +12,7 @@ function Tag({ children, bg = "transparent", fg = "var(--muted)", border }) {
   return (
     <span style={{
       display: "inline-flex", alignItems: "center", gap: 4,
-      fontFamily: "var(--mono)", fontSize: 10.5, lineHeight: "16px",
+      fontFamily: "var(--mono)", fontSize: 12.5, lineHeight: "16px",
       padding: "1px 7px", borderRadius: 3, background: bg, color: fg,
       letterSpacing: "0.04em", border: border ? `1px solid ${border}` : "1px solid transparent",
       whiteSpace: "nowrap",
@@ -28,18 +28,18 @@ function Dot({ color = "var(--border)", pulsing = false, size = 8 }) {
 // 신뢰도 배지 (채움)
 function ConfBadge({ c }) {
   if (!c) return null;
-  return <span style={{ fontFamily: "var(--mono)", fontSize: 10.5, fontWeight: 600, padding: "1px 7px", borderRadius: 3, background: CONF_COLOR[c], color: "#0c0e11", letterSpacing: "0.04em" }}>{c}</span>;
+  return <span style={{ fontFamily: "var(--mono)", fontSize: 12.5, fontWeight: 600, padding: "1px 7px", borderRadius: 3, background: CONF_COLOR[c], color: "#0c0e11", letterSpacing: "0.04em" }}>{c}</span>;
 }
 
 // 신뢰도 배지 (외곽선)
 function ConfOutline({ c }) {
   if (!c) return null;
-  return <span style={{ fontFamily: "var(--mono)", fontSize: 10.5, fontWeight: 600, padding: "1px 7px", borderRadius: 3, background: CONF_BG[c], color: CONF_COLOR[c], letterSpacing: "0.04em", border: `1px solid ${CONF_COLOR[c]}55` }}>{c}</span>;
+  return <span style={{ fontFamily: "var(--mono)", fontSize: 12.5, fontWeight: 600, padding: "1px 7px", borderRadius: 3, background: CONF_BG[c], color: CONF_COLOR[c], letterSpacing: "0.04em", border: `1px solid ${CONF_COLOR[c]}55` }}>{c}</span>;
 }
 
 // 섹션 라벨 (얇은 머리글)
 function SectionLabel({ children, accent = "var(--muted)" }) {
-  return <div style={{ fontFamily: "var(--mono)", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: accent, display: "flex", alignItems: "center", gap: 8 }}>{children}</div>;
+  return <div style={{ fontFamily: "var(--mono)", fontSize: 13, letterSpacing: "0.14em", textTransform: "uppercase", color: accent, display: "flex", alignItems: "center", gap: 8 }}>{children}</div>;
 }
 
 // 핵심: 원문 신호 블록 — 모델이 실제로 받은 입력 텍스트를 그대로 노출.
@@ -64,10 +64,10 @@ function SignalBlock({ tone = "neutral", title, body, mono = true, children, dim
     <div style={{ border: `1px solid var(--border)`, borderLeft: `2px solid ${t.c}`, borderRadius: 3, background: "rgba(0,0,0,0.22)", overflow: "hidden", opacity: dim ? 0.6 : 1 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "5px 10px", borderBottom: "1px solid var(--border-soft)", background: "rgba(255,255,255,0.018)" }}>
         <Dot color={t.c} size={6} />
-        <span style={{ fontFamily: "var(--mono)", fontSize: 10, letterSpacing: "0.1em", color: t.c, textTransform: "uppercase" }}>{t.label}</span>
-        {title && <span style={{ fontFamily: "var(--mono)", fontSize: 11, color: "var(--muted)" }}>{title}</span>}
+        <span style={{ fontFamily: "var(--mono)", fontSize: 12, letterSpacing: "0.1em", color: t.c, textTransform: "uppercase" }}>{t.label}</span>
+        {title && <span style={{ fontFamily: "var(--mono)", fontSize: 13, color: "var(--muted)" }}>{title}</span>}
       </div>
-      <div style={{ padding: "8px 11px", fontFamily: mono ? "var(--mono)" : "var(--sans)", fontSize: 11.5, lineHeight: 1.6, color: "var(--text)", whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
+      <div style={{ padding: "8px 11px", fontFamily: mono ? "var(--mono)" : "var(--sans)", fontSize: 14, lineHeight: 1.6, color: "var(--text)", whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
         {body != null ? body : children}
       </div>
     </div>
@@ -85,8 +85,8 @@ function Collapse({ label, count, openByDefault = false, accent = "var(--muted)"
   return (
     <div style={{ border: "1px solid var(--border)", borderRadius: 5, overflow: "hidden" }}>
       <button onClick={() => setOpen((o) => !o)} style={{ width: "100%", display: "flex", alignItems: "center", gap: 9, padding: "10px 13px", background: open ? "rgba(255,255,255,0.02)" : "transparent", border: "none", borderBottom: open ? "1px solid var(--border)" : "none", cursor: "pointer", textAlign: "left", color: "var(--text)" }}>
-        <span style={{ fontFamily: "var(--mono)", fontSize: 11, color: accent, transition: "transform .15s", transform: open ? "rotate(90deg)" : "none" }}>▶</span>
-        <span style={{ fontFamily: "var(--mono)", fontSize: 12.5, letterSpacing: "0.03em", flex: 1 }}>{label}</span>
+        <span style={{ fontFamily: "var(--mono)", fontSize: 13, color: accent, transition: "transform .15s", transform: open ? "rotate(90deg)" : "none" }}>▶</span>
+        <span style={{ fontFamily: "var(--mono)", fontSize: 15, letterSpacing: "0.03em", flex: 1 }}>{label}</span>
         {count != null && <Tag border="var(--border)">{count}</Tag>}
       </button>
       {open && <div style={{ padding: 13 }}>{children}</div>}

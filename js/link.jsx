@@ -344,42 +344,42 @@ function LinkScreen() {
     if (f !== "all" && activeAsset && assetKind(activeAsset) !== f) setActiveAsset(null);
   };
   const btn = (label, on, onClick, disabled, color) => (
-    <button onClick={onClick} disabled={disabled} style={{ fontFamily: "var(--mono)", fontSize: 12, padding: "7px 15px", borderRadius: 4, cursor: disabled ? "default" : "pointer", border: `1px solid ${disabled ? "var(--border)" : color}`, background: disabled ? "transparent" : `${color}1f`, color: disabled ? "var(--dim)" : color, opacity: disabled ? 0.55 : 1 }}>{label}</button>
+    <button onClick={onClick} disabled={disabled} style={{ fontFamily: "var(--mono)", fontSize: 14.5, padding: "7px 15px", borderRadius: 4, cursor: disabled ? "default" : "pointer", border: `1px solid ${disabled ? "var(--border)" : color}`, background: disabled ? "transparent" : `${color}1f`, color: disabled ? "var(--dim)" : color, opacity: disabled ? 0.55 : 1 }}>{label}</button>
   );
 
   return (
     <div style={{ maxWidth: 1320, margin: "0 auto", padding: "22px 24px 60px" }}>
       <div style={{ marginBottom: 16 }}>
-        <div style={{ ...mono, fontSize: 11, letterSpacing: "0.18em", color: "var(--accent)", textTransform: "uppercase", marginBottom: 5 }}>Link · 라이브 실행</div>
+        <div style={{ ...mono, fontSize: 13, letterSpacing: "0.18em", color: "var(--accent)", textTransform: "uppercase", marginBottom: 5 }}>Link · 라이브 실행</div>
         <div style={{ display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
-          <h2 style={{ ...mono, fontSize: 21, fontWeight: 600, margin: 0 }}>컬럼 → Term 연결 · 새 개념 발견</h2>
+          <h2 style={{ ...mono, fontSize: 25, fontWeight: 600, margin: 0 }}>컬럼 → Term 연결 · 새 개념 발견</h2>
         </div>
       </div>
 
       {/* 컨트롤 바 — 2트리거 */}
       <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap", borderTop: "1px solid var(--border)", padding: "11px 0 9px" }}>
-        <span style={{ ...mono, fontSize: 12, color: phase === "idle" ? "var(--muted)" : "var(--text)" }}>{phaseLabel}</span>
-        {retryNote && <span style={{ fontSize: 11.5, color: "var(--med)", animation: "pulse 1s infinite", fontFamily: "var(--sans)" }}>↻ {retryNote}</span>}
+        <span style={{ ...mono, fontSize: 14.5, color: phase === "idle" ? "var(--muted)" : "var(--text)" }}>{phaseLabel}</span>
+        {retryNote && <span style={{ fontSize: 14, color: "var(--med)", animation: "pulse 1s infinite", fontFamily: "var(--sans)" }}>↻ {retryNote}</span>}
         <span style={{ flex: 1 }} />
-        <span style={{ ...mono, fontSize: 11.5 }}>
+        <span style={{ ...mono, fontSize: 14 }}>
           <span style={{ color: "var(--high)" }}>연결 {counts.match}</span> · <span style={{ color: "var(--text)" }}>발견 {counts.propose}</span> · <span style={{ color: "var(--muted)" }}>검토 {counts.review}</span> · <span style={{ color: "var(--dim)" }}>잔여 {trayResidue.length} · SKIP {counts.skip}</span>
         </span>
         {busy
-          ? <button onClick={stopAll} title="실행 중단" style={{ fontFamily: "var(--mono)", fontSize: 12, padding: "7px 16px", borderRadius: 4, cursor: "pointer", border: "1px solid var(--low)", background: "var(--low)1f", color: "var(--low)" }}>■ 중단</button>
+          ? <button onClick={stopAll} title="실행 중단" style={{ fontFamily: "var(--mono)", fontSize: 14.5, padding: "7px 16px", borderRadius: 4, cursor: "pointer", border: "1px solid var(--low)", background: "var(--low)1f", color: "var(--low)" }}>■ 중단</button>
           : <React.Fragment>
               {btn("① 연결 실행", true, runConnect, false, "var(--high)")}
               {btn("② 발견 실행", true, runDiscover, !canDiscover, "var(--accent)")}
             </React.Fragment>}
         <span style={{ width: 1, alignSelf: "stretch", background: "var(--border)", margin: "3px 3px" }} />
         <button onClick={loadSnapshot} disabled={busy} title="저장된 스냅샷으로 즉시 완료 화면 (모델 실행 없음)"
-          style={{ fontFamily: "var(--mono)", fontSize: 12, padding: "7px 13px", borderRadius: 4, cursor: busy ? "default" : "pointer", border: "1px solid var(--border)", background: "transparent", color: "var(--muted)", opacity: busy ? 0.5 : 1 }}>⚡ 스냅샷 로드</button>
+          style={{ fontFamily: "var(--mono)", fontSize: 14.5, padding: "7px 13px", borderRadius: 4, cursor: busy ? "default" : "pointer", border: "1px solid var(--border)", background: "transparent", color: "var(--muted)", opacity: busy ? 0.5 : 1 }}>⚡ 스냅샷 로드</button>
         <button onClick={() => setDevOpen((v) => !v)} title="스냅샷 유지보수"
-          style={{ fontFamily: "var(--mono)", fontSize: 15, lineHeight: 1, padding: "4px 8px", borderRadius: 4, cursor: "pointer", border: `1px solid ${devOpen ? "var(--border)" : "transparent"}`, background: devOpen ? "var(--border)" : "transparent", color: "var(--dim)" }}>⋯</button>
+          style={{ fontFamily: "var(--mono)", fontSize: 18, lineHeight: 1, padding: "4px 8px", borderRadius: 4, cursor: "pointer", border: `1px solid ${devOpen ? "var(--border)" : "transparent"}`, background: devOpen ? "var(--border)" : "transparent", color: "var(--dim)" }}>⋯</button>
       </div>
 
       {/* 숨김 트레이 — 스냅샷 유지보수(코드 수정 후 갱신용) */}
       {devOpen && (
-        <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", padding: "8px 11px", marginTop: 6, background: "var(--panel)", border: "1px dashed var(--border)", borderRadius: 6, ...mono, fontSize: 11 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", padding: "8px 11px", marginTop: 6, background: "var(--panel)", border: "1px dashed var(--border)", borderRadius: 6, ...mono, fontSize: 13 }}>
           <span style={{ color: "var(--dim)", letterSpacing: "0.05em" }}>스냅샷 유지보수 · 코드 수정 후 ①·② 실행 → 갱신 → 받은 파일 업로드</span>
           <span style={{ flex: 1 }} />
           {phase === "done" && !busy
@@ -389,7 +389,7 @@ function LinkScreen() {
       )}
 
       {/* 범례 + 사후 필터 */}
-      <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", borderTop: "1px solid var(--border-soft)", borderBottom: "1px solid var(--border)", padding: "7px 0", marginBottom: 16, ...mono, fontSize: 10.5, color: "var(--dim)" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", borderTop: "1px solid var(--border-soft)", borderBottom: "1px solid var(--border)", padding: "7px 0", marginBottom: 16, ...mono, fontSize: 12.5, color: "var(--dim)" }}>
         <span style={{ color: "var(--muted)", letterSpacing: "0.06em" }}>행 읽는 법</span>
         <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}><U.Dot color="var(--high)" size={7} /> 신뢰도</span>
         <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}><U.Tag fg="var(--high)" border="var(--high)55">연결</U.Tag> 기존 Term</span>
@@ -422,7 +422,7 @@ function LinkScreen() {
 
             return (
               <div key={a}>
-                {head && <div style={{ ...mono, fontSize: 10.5, color: "var(--muted)", padding: "9px 12px 5px", borderTop: "1px solid var(--border)", letterSpacing: "0.08em", background: "rgba(0,0,0,0.15)" }}>{tbl(a)} <span style={{ color: "var(--dim)" }}>· {c.domain}</span></div>}
+                {head && <div style={{ ...mono, fontSize: 12.5, color: "var(--muted)", padding: "9px 12px 5px", borderTop: "1px solid var(--border)", letterSpacing: "0.08em", background: "rgba(0,0,0,0.15)" }}>{tbl(a)} <span style={{ color: "var(--dim)" }}>· {c.domain}</span></div>}
                 <div className="row-hover" onClick={() => clickRow(a)} style={{
                   display: "flex", alignItems: "center", gap: 9, padding: "8px 12px", cursor: busy ? "default" : "pointer",
                   opacity: skipped ? 0.4 : dimmed ? 0.32 : 1,
@@ -431,18 +431,18 @@ function LinkScreen() {
                   transition: "background .4s, opacity .25s",
                 }}>
                   <U.Dot color={dotColor} pulsing={pulsing} size={9} />
-                  <span style={{ ...mono, fontSize: 12.5, flex: 1, color: skipped ? "var(--muted)" : "var(--text)" }}>{col(a)}</span>
+                  <span style={{ ...mono, fontSize: 15, flex: 1, color: skipped ? "var(--muted)" : "var(--text)" }}>{col(a)}</span>
                   {skipped
                     ? <U.Tag fg="var(--muted)">SKIP</U.Tag>
                     : v
                       ? <>
                           <U.Tag fg={v.kind === "match" ? "var(--high)" : "var(--accent)"} border={(v.kind === "match" ? "var(--high)" : "var(--accent)") + "55"}>{v.kind === "match" ? "연결" : "발견"}</U.Tag>
-                          <span style={{ ...mono, fontSize: 11, color: "var(--text)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: 104 }} title={(v.kind === "match" ? "연결: " : "발견: ") + (v.kind === "match" ? v.term : v.concept)}>{v.kind === "match" ? v.term : v.concept}</span>
+                          <span style={{ ...mono, fontSize: 13, color: "var(--text)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: 104 }} title={(v.kind === "match" ? "연결: " : "발견: ") + (v.kind === "match" ? v.term : v.concept)}>{v.kind === "match" ? v.term : v.concept}</span>
                           <U.ConfBadge c={v.confidence} />
                         </>
                       : isResidueRow
                         ? <U.Tag fg="var(--muted)" border="var(--border)">잔여</U.Tag>
-                        : <span style={{ ...mono, fontSize: 10.5, color: "var(--dim)" }}>{c.type}</span>}
+                        : <span style={{ ...mono, fontSize: 12.5, color: "var(--dim)" }}>{c.type}</span>}
                 </div>
               </div>
             );
@@ -455,13 +455,13 @@ function LinkScreen() {
             <div style={{ background: "var(--panel)", border: "1px solid var(--border)", borderLeft: "2px solid var(--accent)", borderRadius: 6, padding: "11px 13px", flexShrink: 0 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
                 <span style={{ width: 7, height: 7, borderRadius: 2, background: "var(--accent)", transform: "rotate(45deg)" }} />
-                <span style={{ ...mono, fontSize: 11.5, color: "var(--accent)", letterSpacing: "0.06em" }}>잔여 트레이</span>
-                <span style={{ ...mono, fontSize: 11, color: "var(--text)" }}>{trayResidue.length}</span>
-                <span style={{ ...mono, fontSize: 10.5, color: "var(--dim)" }}>· {phase === "discovering" ? "군집으로 이동 중" : phase === "matching" ? "연결 실패분 적재 중" : "발견 입력 대기"}</span>
+                <span style={{ ...mono, fontSize: 14, color: "var(--accent)", letterSpacing: "0.06em" }}>잔여 트레이</span>
+                <span style={{ ...mono, fontSize: 13, color: "var(--text)" }}>{trayResidue.length}</span>
+                <span style={{ ...mono, fontSize: 12.5, color: "var(--dim)" }}>· {phase === "discovering" ? "군집으로 이동 중" : phase === "matching" ? "연결 실패분 적재 중" : "발견 입력 대기"}</span>
               </div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
                 {trayResidue.map((r) => (
-                  <span key={r.asset} className="trayPop" style={{ ...mono, fontSize: 11, color: "var(--text)", border: "1px solid var(--border)", borderRadius: 3, padding: "2px 8px", background: "rgba(0,0,0,0.25)" }}>{col(r.asset)}</span>
+                  <span key={r.asset} className="trayPop" style={{ ...mono, fontSize: 13, color: "var(--text)", border: "1px solid var(--border)", borderRadius: 3, padding: "2px 8px", background: "rgba(0,0,0,0.25)" }}>{col(r.asset)}</span>
                 ))}
               </div>
             </div>

@@ -17,7 +17,7 @@ function DataTable({ template, head, rows }) {
     <div style={{ border: "1px solid var(--border)", borderRadius: 6, overflow: "hidden", background: "var(--panel)" }}>
       <div style={{ display: "grid", gridTemplateColumns: template, background: "rgba(0,0,0,0.24)", borderBottom: "1px solid var(--border)" }}>
         {head.map((h, i) => (
-          <div key={i} style={{ ...hs.mono, fontSize: 10.5, letterSpacing: "0.08em", color: "var(--muted)", textTransform: "uppercase", padding: "9px 12px" }}>{h}</div>
+          <div key={i} style={{ ...hs.mono, fontSize: 12.5, letterSpacing: "0.08em", color: "var(--muted)", textTransform: "uppercase", padding: "9px 12px" }}>{h}</div>
         ))}
       </div>
       {rows.map((r, ri) => (
@@ -37,11 +37,11 @@ const Sn = ({ children, color = "var(--muted)", size = 12 }) => <span style={{ .
 function DomainTag({ U, d }) { return <U.Tag border="var(--border)">{d}</U.Tag>; }
 function Vals({ U, values, mono }) {
   if (!values) return <Sn color="var(--dim)">—</Sn>;
-  return <span style={{ ...hs.mono, fontSize: 11, color: "var(--accent)", lineHeight: 1.55, wordBreak: "break-word" }}>{Object.entries(values).map(([k, v]) => `${k}=${v}`).join("  ")}</span>;
+  return <span style={{ ...hs.mono, fontSize: 13, color: "var(--accent)", lineHeight: 1.55, wordBreak: "break-word" }}>{Object.entries(values).map(([k, v]) => `${k}=${v}`).join("  ")}</span>;
 }
 
 function Caption({ children }) {
-  return <p style={{ ...hs.sans, fontSize: 12.5, color: "var(--muted)", margin: "0 0 13px", maxWidth: 820, lineHeight: 1.6 }}>{children}</p>;
+  return <p style={{ ...hs.sans, fontSize: 15, color: "var(--muted)", margin: "0 0 13px", maxWidth: 820, lineHeight: 1.6 }}>{children}</p>;
 }
 
 // ---- Render 소스 ----
@@ -51,7 +51,7 @@ function SrcDB({ U, R }) {
     const flags = [];
     if (c.pk) flags.push(<U.Tag key="pk" bg="rgba(106,169,224,0.12)" fg="var(--sig)">PK</U.Tag>);
     if (c.fk) flags.push(<U.Tag key="fk" bg="rgba(178,145,230,0.12)" fg="var(--lin)">FK</U.Tag>);
-    flags.push(<span key="nn" style={{ ...hs.sans, fontSize: 11, color: c.notNull ? "var(--muted)" : "var(--dim)", whiteSpace: "nowrap" }}>{c.notNull ? "NOT NULL" : "NULL"}</span>);
+    flags.push(<span key="nn" style={{ ...hs.sans, fontSize: 13, color: c.notNull ? "var(--muted)" : "var(--dim)", whiteSpace: "nowrap" }}>{c.notNull ? "NOT NULL" : "NULL"}</span>);
     return [
       <Mn color="var(--dim)">{c.t}</Mn>,
       <Mn>{c.n}</Mn>,
@@ -63,7 +63,7 @@ function SrcDB({ U, R }) {
     <div>
       <Caption>물리 스키마의 <b style={{ color: "var(--text)" }}>형태(form)</b>만 제공한다 — 컬럼 코멘트·샘플데이터 없음. 의미는 Catalog·Code에 있다.</Caption>
       <DataTable template="minmax(150px,1.1fr) minmax(150px,1.2fr) 0.8fr 1.1fr" head={["테이블", "컬럼", "타입", "제약"]} rows={rows} />
-      <button onClick={() => setRaw((v) => !v)} style={{ ...hs.mono, fontSize: 11.5, color: "var(--muted)", background: "transparent", border: "1px solid var(--border)", borderRadius: 4, padding: "6px 12px", marginTop: 12, cursor: "pointer" }}>
+      <button onClick={() => setRaw((v) => !v)} style={{ ...hs.mono, fontSize: 14, color: "var(--muted)", background: "transparent", border: "1px solid var(--border)", borderRadius: 4, padding: "6px 12px", marginTop: 12, cursor: "pointer" }}>
         {raw ? "▾ schema.sql 원본 닫기" : "▸ schema.sql 원본 보기"}
       </button>
       {raw && <CodePanel title="schema.sql" body={R.SCHEMA_SQL} />}
@@ -101,8 +101,8 @@ function SrcCode({ R }) {
 function CodePanel({ title, body, compact }) {
   return (
     <div style={{ border: "1px solid var(--border)", borderRadius: 5, overflow: "hidden", marginTop: compact ? 0 : 12, background: "var(--panel)" }}>
-      <div style={{ ...hs.mono, fontSize: 11, color: "var(--high)", padding: "7px 11px", borderBottom: "1px solid var(--border)", background: "rgba(0,0,0,0.2)" }}>{title}</div>
-      <pre style={{ ...hs.mono, fontSize: 10.6, lineHeight: 1.55, color: "var(--text)", background: "rgba(0,0,0,0.28)", padding: "11px 12px", margin: 0, overflowX: "auto", whiteSpace: "pre" }}>{body}</pre>
+      <div style={{ ...hs.mono, fontSize: 13, color: "var(--high)", padding: "7px 11px", borderBottom: "1px solid var(--border)", background: "rgba(0,0,0,0.2)" }}>{title}</div>
+      <pre style={{ ...hs.mono, fontSize: 12.5, lineHeight: 1.55, color: "var(--text)", background: "rgba(0,0,0,0.28)", padding: "11px 12px", margin: 0, overflowX: "auto", whiteSpace: "pre" }}>{body}</pre>
     </div>
   );
 }
@@ -145,7 +145,7 @@ function SigBI({ U, L }) {
   const rows = L.BI_ASSETS.map((b) => [
     <Mn color={junk(b.label) ? "var(--low)" : "var(--text)"}>{b.label}</Mn>,
     <Mn color="var(--dim)" size={11}>{b.tool}</Mn>,
-    <span style={{ ...hs.mono, fontSize: 11, color: tyColor[b.type] || "var(--muted)" }}>{b.type}</span>,
+    <span style={{ ...hs.mono, fontSize: 13, color: tyColor[b.type] || "var(--muted)" }}>{b.type}</span>,
     <Mn color="var(--muted)" size={11}>{b.references.map((r) => L.col(r)).join(", ")}</Mn>,
   ]);
   return (
@@ -180,7 +180,7 @@ function AgentSeg({ items, value, onChange }) {
         const on = value === it.id;
         return (
           <button key={it.id} onClick={() => onChange(it.id)}
-            style={{ ...hs.mono, fontSize: 13, padding: "9px 18px", cursor: "pointer", border: "none", whiteSpace: "nowrap",
+            style={{ ...hs.mono, fontSize: 15.5, padding: "9px 18px", cursor: "pointer", border: "none", whiteSpace: "nowrap",
               borderLeft: i ? "1px solid var(--border)" : "none",
               background: on ? it.color + "1e" : "transparent",
               color: on ? "var(--text)" : "var(--muted)", display: "flex", alignItems: "center", gap: 8 }}>
@@ -196,7 +196,7 @@ function AgentSeg({ items, value, onChange }) {
 function SrcUnderTab({ on, color, onClick, children }) {
   return (
     <button onClick={onClick}
-      style={{ ...hs.mono, fontSize: 12.5, padding: "8px 14px 9px", cursor: "pointer", background: "transparent", whiteSpace: "nowrap",
+      style={{ ...hs.mono, fontSize: 15, padding: "8px 14px 9px", cursor: "pointer", background: "transparent", whiteSpace: "nowrap",
         border: "none", borderBottom: `2px solid ${on ? color : "transparent"}`, marginBottom: -1,
         color: on ? "var(--text)" : "var(--muted)", letterSpacing: "0.02em" }}>{children}</button>
   );
