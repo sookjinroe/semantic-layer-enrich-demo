@@ -11,6 +11,25 @@ function App() {
   const nav = (s) => setScreen(s);
   const mono = { fontFamily: "var(--mono)" };
 
+  // API 키 입력/변경 — claude.ai 밖(GitHub Pages·로컬)에서 필요. 키는 이 브라우저에만 저장된다.
+  // 키 유무와 무관하게 항상 접근 가능 → 다른 브라우저에서 입력·변경 모두 가능.
+  const readKey = () => {
+    try { return (window.ANTHROPIC_KEY || localStorage.getItem("anthropic_key") || ""); }
+    catch (e) { return ""; }
+  };
+  const [keySet, setKeySet] = aUseState(() => !!readKey());
+  const editKey = () => {
+    const cur = readKey();
+    const k = window.prompt("Anthropic API 키 (이 브라우저에만 저장됩니다):", cur);
+    if (k === null) return;                       // 취소
+    const v = k.trim();
+    try {
+      if (v) localStorage.setItem("anthropic_key", v);
+      else localStorage.removeItem("anthropic_key");
+    } catch (e) {}
+    setKeySet(!!v);
+  };
+
   const NavTab = ({ id, label, color }) => {
     const on = screen === id;
     return (
@@ -39,7 +58,15 @@ function App() {
             <NavTab id="link" label="Link" color="var(--accent)" />
           </div>
           <span style={{ flex: 1 }} />
-          <span style={{ ...mono, fontSize: 12.5, color: "var(--dim)", letterSpacing: "0.08em" }}>LIVE · 실제 모델 판단</span>
+          <button onClick={editKey} title="Anthropic API 키 입력 / 변경 (이 브라우저에만 저장)"
+            style={{ ...mono, fontSize: 13.5, padding: "5px 11px", borderRadius: 4, cursor: "pointer",
+                     display: "flex", alignItems: "center", gap: 7,
+                     border: "1px solid var(--border)", background: "transparent", color: "var(--muted)" }}>
+            <span style={{ width: 8, height: 8, borderRadius: 8, flexShrink: 0,
+                           background: keySet ? "var(--high)" : "var(--dim)" }} />
+            ⚙ 키
+          </button>
+          <span style={{ ...mono, fontSize: 12.5, color: "var(--dim)", letterSpacing: "0.08em", marginLeft: 14 }}>LIVE · 실제 모델 판단</span>
         </div>
       </div>
 
